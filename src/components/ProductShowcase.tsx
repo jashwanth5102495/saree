@@ -30,6 +30,7 @@ const products: Product[] = [
   { id: 18, name: 'Swarna', image: '/uploads/swarna.png' },
   { id: 19, name: 'Wake Up', image: '/uploads/wake up.png' },
   { id: 20, name: 'X-SPA80', image: '/uploads/X-SPA80.png' },
+  { id: 21, name: 'Super Grow', image: '/uploads/super grow.png' },
 ];
 
 export function ProductShowcase() {
