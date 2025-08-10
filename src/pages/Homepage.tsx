@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Leaf, Droplets, Shield } from 'lucide-react';
+import { ArrowRight, Leaf, Droplets, Shield, Sprout, Zap, FlaskConical } from 'lucide-react';
 import { ProductShowcase } from '../components/ProductShowcase';
 import { useTheme } from '../contexts/ThemeContext';
 import backgroundImage from '../assets/background.png';
@@ -26,6 +26,21 @@ export function Homepage() {
       icon: Shield,
       title: 'Eco-Friendly',
       description: 'Environmentally safe products that protect ecosystems and biodiversity'
+    },
+    {
+      icon: Sprout,
+      title: 'Natural Biostimulants',
+      description: 'Enhance plant growth and resilience with our natural biostimulant formulations'
+    },
+    {
+      icon: Zap,
+      title: 'Non Ionic Spray Adjuvants',
+      description: 'Improve spray coverage and effectiveness with our specialized adjuvant solutions'
+    },
+    {
+      icon: FlaskConical,
+      title: 'Micronutrient Mixture Fertilizers',
+      description: 'Complete micronutrient packages to address specific crop deficiencies and boost yields'
     }
   ];
 
@@ -269,8 +284,9 @@ export function Homepage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {features.map((feature, index) => {
+          {/* First Row */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            {features.slice(0, 3).map((feature, index) => {
               const Icon = feature.icon;
               return (
                 <motion.div
@@ -279,7 +295,33 @@ export function Homepage() {
                   whileInView={{ opacity: 1 }}
                   transition={{ duration: 0.6, delay: index * 0.2 }}
                   viewport={{ once: true }}
-                  className="relative text-center p-10 rounded-3xl bg-gradient-to-br from-green-50 to-emerald-50 dark:from-black dark:to-gray-900 hover:from-green-100 hover:to-emerald-100 dark:hover:from-gray-900 dark:hover:to-black transition-all duration-300 group shadow-xl hover:shadow-2xl border border-green-100 dark:border-gray-800"
+                  className="relative text-center p-10 rounded-3xl bg-gradient-to-br from-green-50 to-emerald-50 dark:from-black dark:to-gray-900 hover:from-green-100 hover:to-emerald-100 dark:hover:from-gray-900 dark:hover:to-black transition-all duration-300 group shadow-xl hover:shadow-2xl border border-green-100 dark:border-gray-800 hover:-translate-y-2 cursor-pointer"
+                >
+                  <div 
+                    className="relative w-20 h-20 bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"
+                  >
+                    <Icon className="w-10 h-10 text-white" />
+                  </div>
+                  
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">{feature.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">{feature.description}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Second Row */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            {features.slice(3, 6).map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <motion.div
+                  key={index + 3}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                  className="relative text-center p-10 rounded-3xl bg-gradient-to-br from-green-50 to-emerald-50 dark:from-black dark:to-gray-900 hover:from-green-100 hover:to-emerald-100 dark:hover:from-gray-900 dark:hover:to-black transition-all duration-300 group shadow-xl hover:shadow-2xl border border-green-100 dark:border-gray-800 hover:-translate-y-2 cursor-pointer"
                 >
                   <div 
                     className="relative w-20 h-20 bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"

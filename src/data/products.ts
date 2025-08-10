@@ -1,7 +1,7 @@
 export interface Product {
   id: string;
   name: string;
-  category: 'organic' | 'mineral' | 'liquid' | 'granular' | 'specialty';
+  category: 'organic' | 'mineral' | 'liquid' | 'granular' | 'specialty' | 'powder' | 'liquids';
   image: string;
   shortDescription: string;
   fullDescription: string;
@@ -11,13 +11,14 @@ export interface Product {
   safetyTips: string[];
   price: string;
   inStock: boolean;
+  application: string;
 }
 
 export const products: Product[] = [
   {
     id: 'greengro',
     name: 'GREENGRO',
-    category: 'organic',
+    category: 'liquids',
     image: '/uploads/GREENGRO.png',
     shortDescription: 'Premium organic growth enhancer for sustainable agriculture',
     fullDescription: `BENEFIT OF GREENGRO:
@@ -34,14 +35,15 @@ Urea Ammonium Nitrate(32%) (Liquid)`,
     ingredients: ['Organic compost', 'Seaweed extract', 'Humic acid', 'Beneficial microbes'],
     safetyTips: ['Wear gloves when handling', 'Store in cool, dry place', 'Keep away from children', 'Wash hands after use'],
     price: '₹1,250',
-    inStock: true
+    inStock: true,
+    application: 'All Crops'
   },
   {
     id: 'x-spa80',
     name: 'X-SPA80',
-    category: 'liquid',
+    category: 'liquids',
     image: '/uploads/X-SPA80.png',
-    shortDescription: 'Advanced liquid fertilizer for maximum plant performance',
+    shortDescription: 'nonionic spray adjuvants',
     fullDescription: `BENEFIT OF X-SPA80:
 X-spa80 is highly concentrated nonionic wetting agent with 80% active ingredients. As an Sticker - Activator - Spreader, it activates the spray fluid to moisten the plant surface and allows uniform spreading of spray deposits. powerful tool in irrigation with improves the water absorption in soil, it facilitates uniform mixing of powders, pesticides & most liquid fertilizers, it is non corrosive to spray equipment and prevents clogged nozzles. Safe & environment friendly.
 
@@ -52,14 +54,15 @@ RECOMMENDED DOSAGE:
     ingredients: ['NPK fertilizer', 'Micronutrients', 'Amino acids', 'Growth hormones'],
     safetyTips: ['Use protective equipment', 'Avoid skin contact', 'Store in original container', 'Keep refrigerated after opening'],
     price: '₹1,800',
-    inStock: true
+    inStock: true,
+    application: 'All Crops'
   },
   {
     id: 'silicron',
     name: 'Silicron',
-    category: 'mineral',
+    category: 'liquids',
     image: '/uploads/silicron.png',
-    shortDescription: 'Silicon-based mineral fertilizer for plant strength',
+    shortDescription: 'nonionic spray adjuvants',
     fullDescription: `BENEFIT OF SILICRON:
 1. Super spreading: acti-silion solution spreads quickly, carrying insecticides into pests and carrying fungicides on those crop canopy, prone to infection by diseases. it assist herbicides to kill weeds uniformly in shorter duration
 2. Silicron is useful for faster & enhanced spreading while spraying agrochemicals
@@ -73,14 +76,15 @@ Silicone Based Super Spreader`,
     ingredients: ['Soluble silicon', 'Potassium silicate', 'Micronutrients', 'Organic acids'],
     safetyTips: ['Wear protective clothing', 'Avoid inhalation', 'Store in sealed container', 'Keep dry'],
     price: '₹1,450',
-    inStock: true
+    inStock: true,
+    application: 'All Crops'
   },
   {
     id: 'swarna',
     name: 'Swarna',
-    category: 'organic',
+    category: 'liquids',
     image: '/uploads/swarna.png',
-    shortDescription: 'Golden organic fertilizer for premium crop quality',
+    shortDescription: 'N.P Complex Fertilizer',
     fullDescription: `BENEFIT OF SWARNA:
 Bio availability of N&P nutrients are higher. Excellent liquid phosphatic fertilizer. Suitable for foliar and root application. Can be mixed with other agrochemicals other than Copper, Zinc, Sulphate based compounds.
 
@@ -95,14 +99,15 @@ Ammonium Poly-phosphate (10-34-0) (Liquid)`,
     ingredients: ['Organic matter', 'Composted manure', 'Rock phosphate', 'Kelp meal'],
     safetyTips: ['Safe for organic farming', 'Store in dry location', 'Keep away from pets', 'Use clean tools'],
     price: '₹1,350',
-    inStock: true
+    inStock: true,
+    application: 'All Crops'
   },
   {
     id: 'wake-up',
     name: 'Wake Up',
-    category: 'liquid',
+    category: 'liquids',
     image: '/uploads/wake up.png',
-    shortDescription: 'Revitalizing liquid fertilizer for dormant plants',
+    shortDescription: 'nature biostimulants',
     fullDescription: `BENEFIT OF WAKE UP:
 Wake up contains organic constituents like humic, humates & Fulvic acids supported by naturally containing essential trace elements. Humic acids are reported to increase permeability of plant membranes, resulting in higher metabolic activity due to increased nutrient's availability & enzyme activity.
 
@@ -117,14 +122,15 @@ Humates and Fulvates-22% (Liquid)`,
     ingredients: ['Growth hormones', 'Amino acids', 'Micronutrients', 'Seaweed extract'],
     safetyTips: ['Follow dilution rates', 'Monitor plant response', 'Store in cool place', 'Use within 6 months'],
     price: '₹1,600',
-    inStock: true
+    inStock: true,
+    application: 'Groundnut'
   },
   {
     id: 'rich-roots',
     name: 'Rich Roots',
-    category: 'granular',
+    category: 'liquids',
     image: '/uploads/rich roots.png',
-    shortDescription: 'Root development fertilizer for strong plant foundation',
+    shortDescription: 'nature biostimulants',
     fullDescription: `BENEFIT OF RICH ROOTS:
 1. Rich Roots contains organic constituents like humic, humates and Fulvic acids supported by naturally containing essential trace elements. Humic acids are reported to permeability of plant membranes, resulting in higher metabolic activity due to increased nutrient's availability and enzyme activity.
 2. Humic acids build up organic matter which is required for microbial growth. It stimulates the respiration rates of seeding which leads quicker germination.
@@ -141,14 +147,15 @@ Humates 12.5% (Liquid)`,
     ingredients: ['Phosphorus compounds', 'Mycorrhizal fungi', 'Organic matter', 'Trace elements'],
     safetyTips: ['Avoid contact with stems', 'Water in thoroughly', 'Store in cool, dry place', 'Use before expiration'],
     price: '₹1,400',
-    inStock: true
+    inStock: true,
+    application: 'Green Gram'
   },
   {
     id: 'lasya',
     name: 'Lasya',
-    category: 'specialty',
+    category: 'liquids',
     image: '/uploads/lasya.png',
-    shortDescription: 'Specialized fertilizer for flowering and ornamental plants',
+    shortDescription: 'nature biostimulants',
     fullDescription: `BENEFIT OF LASYA:
 Improves photosynthesis in plants & entire plant will become greenish. It will help to overcome micronutrient deficiency in all crop. Repeated application with 15-20 days interval will keep crop Healthy Better growth. Improves disease resistance in all crops.
 
@@ -163,14 +170,15 @@ Organic botanical extract- 10%`,
     ingredients: ['Phosphorus-rich formula', 'Potassium compounds', 'Micronutrients', 'Organic acids'],
     safetyTips: ['Avoid over-fertilization', 'Monitor plant response', 'Store in sealed container', 'Keep away from children'],
     price: '₹1,550',
-    inStock: true
+    inStock: true,
+    application: 'Green Gram'
   },
   {
     id: 'root-booster',
     name: 'Root Booster',
-    category: 'granular',
+    category: 'powder',
     image: '/uploads/Root Booster.png',
-    shortDescription: 'Advanced root development and soil conditioning fertilizer',
+    shortDescription: 'nature biostimulants',
     fullDescription: `BENEFIT OF ROOT BOOSTER:
 Improves physical, chemical and biological properties of soil. increases aeration and water holding capacity of soil. improves effectiveness of metallic fungicides.
 
@@ -184,14 +192,15 @@ Potassium Humate 49% (Powder)`,
     ingredients: ['Root stimulants', 'Beneficial bacteria', 'Organic matter', 'Essential nutrients'],
     safetyTips: ['Handle with care', 'Store in moisture-proof container', 'Use clean equipment', 'Follow application rates'],
     price: '₹1,650',
-    inStock: true
+    inStock: true,
+    application: 'Paddy'
   },
   {
     id: 'jeevan-plus',
     name: 'JEEVAN PLUS',
-    category: 'organic',
+    category: 'liquids',
     image: '/uploads/JEEVAN PLUS.png',
-    shortDescription: 'Life-enhancing organic fertilizer for sustainable farming',
+    shortDescription: 'nature biostimulants',
     fullDescription: `BENEFIT OF JEEVAN PLUS:
 1. Jeevan Plus contains organic constituents like humic, humates and Fulvic acids supported by naturally containing essential trace elements. Humic acids are reported to permeability of plant membranes, resulting in higher metabolic activity due to increased nutrient's availability and enzyme activity.
 2. Humic acids build up organic matter which is required for microbial growth. It stimulates the respiration rates of seeding which leads quicker germination.
@@ -208,14 +217,15 @@ Humates 12.5% (Liquid)`,
     ingredients: ['Organic compost', 'Vermicompost', 'Neem cake', 'Rock minerals'],
     safetyTips: ['Safe for organic production', 'Store in dry location', 'Compostable packaging', 'Natural ingredients only'],
     price: '₹1,300',
-    inStock: true
+    inStock: true,
+    application: 'Green Gram'
   },
   {
     id: 'g-bor',
     name: 'G-BOR',
-    category: 'mineral',
+    category: 'powder',
     image: '/uploads/G-BOR.png',
-    shortDescription: 'Boron-enriched mineral fertilizer for crop quality',
+    shortDescription: 'Micronutrients',
     fullDescription: `BENEFIT OF G-BOR:
 1. It Play Vital Role in Proper Development of Roots and Shoots.
 2. Germination, Metabolic Process Can Be Improved,
@@ -232,14 +242,15 @@ BORON 20%`,
     ingredients: ['Boron compounds', 'Micronutrients', 'Soluble minerals', 'Chelated elements'],
     safetyTips: ['Follow application rates', 'Monitor soil levels', 'Store in sealed container', 'Avoid over-application'],
     price: '₹1,750',
-    inStock: true
+    inStock: true,
+    application: 'All Crops'
   },
   {
     id: 'combi-pro',
     name: 'Combi Pro',
-    category: 'liquid',
+    category: 'powder',
     image: '/uploads/combi pro.png',
-    shortDescription: 'Professional combination liquid fertilizer for all crops',
+    shortDescription: 'Micronutrient Mixture Fertilizers',
     fullDescription: `BENEFIT OF COMBI PRO:
 1. Combi Pro is 100% water soluble formulation containing microelements in chelated form those are needed by crops. these vital nutrients are in readily available form.
 2. Combi Pro corrects all deficiencies those occur due to non - availability of micro elements.
@@ -258,14 +269,15 @@ Zn-3.0%. Fe-2.0%. Mn-1.0%. B-0.5%`,
     ingredients: ['NPK compounds', 'Micronutrients', 'Amino acids', 'Growth regulators'],
     safetyTips: ['Follow professional guidelines', 'Use protective equipment', 'Store properly', 'Monitor crop response'],
     price: '₹2,100',
-    inStock: true
+    inStock: true,
+    application: 'All Crops'
   },
   {
     id: 'sparsha',
     name: 'Sparsha',
-    category: 'specialty',
+    category: 'powder',
     image: '/uploads/sparsha.png',
-    shortDescription: 'Touch-responsive fertilizer for sensitive crops',
+    shortDescription: 'Micronutrients',
     fullDescription: `BENEFIT OF SPARSHA:
 1. Zinc in far more effective than Zinc Sulphate so far as uptake is concerned.
 2. Zinc is easily translocated within the plants.
@@ -289,14 +301,15 @@ CHELATED ZINC AS ZN-EDTA (12%Zn)`,
     ingredients: ['Slow-release compounds', 'Organic acids', 'Micronutrients', 'pH stabilizers'],
     safetyTips: ['Handle with care', 'Monitor plant health', 'Store in cool place', 'Follow application guidelines'],
     price: '₹1,850',
-    inStock: true
+    inStock: true,
+    application: 'All Crops'
   },
   {
     id: 'shine-citrus',
     name: 'Shine Citrus',
-    category: 'specialty',
+    category: 'liquids',
     image: '/uploads/shine citrus.png',
-    shortDescription: 'Specialized fertilizer for citrus trees and fruits',
+    shortDescription: 'Micronutrient Mixture Fertilizers',
     fullDescription: `BENEFIT OF SHINE CITRUS:
 1. Shine Citrus will help better utilisation of major nutrients.
 2. Shine Citrus will help to increase the immunity power of plants against adverse conditions.
@@ -314,14 +327,15 @@ Zn-3.0%. Fe-05%. B-0.5%.`,
     ingredients: ['Citrus-specific nutrients', 'Iron compounds', 'Magnesium sulfate', 'Zinc oxide'],
     safetyTips: ['Avoid contact with fruit', 'Water after application', 'Store in cool area', 'Use within 2 years'],
     price: '₹1,900',
-    inStock: true
+    inStock: true,
+    application: 'All Crops'
   },
   {
     id: 'micro',
     name: 'Micro',
-    category: 'mineral',
+    category: 'liquids',
     image: '/uploads/micro.png',
-    shortDescription: 'Micronutrient fertilizer for complete plant nutrition',
+    shortDescription: 'Micronutrient Mixture Fertilizers',
     fullDescription: `BENEFIT OF MICRO STAR:
 1. MICRO STAR will help better utilisation of major nutrients.
 2. MICRO STAR will help to increase the immunity power of plants against adverse conditions.
@@ -339,14 +353,15 @@ Zn-3.0%.Fe-2.0%. B-1.0%.`,
     ingredients: ['Zinc sulfate', 'Iron chelates', 'Manganese compounds', 'Copper sulfate'],
     safetyTips: ['Follow application rates', 'Monitor plant response', 'Store in sealed container', 'Avoid over-application'],
     price: '₹1,600',
-    inStock: true
+    inStock: true,
+    application: 'All Crops'
   },
   {
     id: 'mango-king',
     name: 'Mango King',
-    category: 'specialty',
+    category: 'liquids',
     image: '/uploads/mango king.png',
-    shortDescription: 'Premium fertilizer for mango trees and tropical fruits',
+    shortDescription: 'Micronutrient Mixture Fertilizers',
     fullDescription: `BENEFIT OF MANGO KING:
 1. Better utilization of major nutrients.
 2. Increased immunity power of plants against adverse conditions.
@@ -366,14 +381,15 @@ B-0.5% (Boron)`,
     ingredients: ['Tropical fruit nutrients', 'Flowering stimulants', 'Organic matter', 'Beneficial microbes'],
     safetyTips: ['Avoid trunk contact', 'Water deeply after application', 'Store in dry place', 'Follow seasonal timing'],
     price: '₹2,200',
-    inStock: true
+    inStock: true,
+    application: 'Mango & Tropical Fruits'
   },
   {
     id: 'green-pro',
     name: 'Green Pro',
-    category: 'organic',
+    category: 'liquids',
     image: '/uploads/green pro.png',
-    shortDescription: 'Professional organic fertilizer for commercial farming',
+    shortDescription: 'straight nitrogenous fertilizer',
     fullDescription: `BENEFIT OF GREEN PRO:
 1. Green Pro will help better utilisation of major nutrients.
 2. Green Pro will help to increase the immunity power of plants against adverse conditions.
@@ -390,14 +406,15 @@ Zn-3.0%, Fe-1.5%, B-0.5%.`,
     ingredients: ['Organic compost', 'Animal manure', 'Rock minerals', 'Beneficial microbes'],
     safetyTips: ['Use appropriate equipment', 'Store in bulk containers', 'Follow safety protocols', 'Monitor crop response'],
     price: '₹1,800',
-    inStock: true
+    inStock: true,
+    application: 'All Crops'
   },
   {
     id: 'green-care',
     name: 'Green Care',
-    category: 'liquid',
+    category: 'liquids',
     image: '/uploads/green care.png',
-    shortDescription: 'Gentle liquid fertilizer for plant care and maintenance',
+    shortDescription: 'Micronutrient Mixture Fertilizers',
     fullDescription: `BENEFIT OF GREEN CARE:
 1. Green Care will help better utilisation of major nutrients.
 2. Green Care will help to increase the immunity power of plants against adverse conditions.
@@ -415,14 +432,15 @@ Zn-3.0%. Fe-0.5%. Mn-0.2%. B-0.5%.`,
     ingredients: ['Balanced nutrients', 'Organic acids', 'Micronutrients', 'Growth promoters'],
     safetyTips: ['Follow dilution rates', 'Monitor plant health', 'Store in cool place', 'Use clean equipment'],
     price: '₹1,450',
-    inStock: true
+    inStock: true,
+    application: 'All Crops'
   },
   {
     id: 'melon-soil',
     name: 'Melon Soil',
-    category: 'specialty',
+    category: 'powder',
     image: '/uploads/melon soil.png',
-    shortDescription: 'Specialized fertilizer for melons and cucurbits',
+    shortDescription: 'Micronutrient Mixture Fertilizers',
     fullDescription: `BENEFIT OF MELON SOIL +:
 1. Improves photosynthesis in plants and entire plants will become greenish.
 2. It will overcome micronutrient deficiency in all crops.
@@ -441,14 +459,15 @@ Zn-10.0%. Fe-5.0%. Mn-2.0%. B-0.3%.`,
     ingredients: ['Cucurbit nutrients', 'Potassium compounds', 'Organic matter', 'Beneficial microbes'],
     safetyTips: ['Avoid fruit contact', 'Water after application', 'Store in dry place', 'Follow application timing'],
     price: '₹1,700',
-    inStock: true
+    inStock: true,
+    application: 'Melons & Cucurbits'
   },
   {
     id: 'sun-shine',
     name: 'Sun Shine',
-    category: 'organic',
+    category: 'liquids',
     image: '/uploads/sun sgine.png',
-    shortDescription: 'Sun-powered organic fertilizer for vibrant growth',
+    shortDescription: 'Micronutrient Mixture Fertilizers',
     fullDescription: `BENEFIT OF SUN SHINE:
 1. Sun Shine will help better utilisation of major nutrients.
 2. Sun Shine will help to increase the immunity power of plants against adverse conditions.
@@ -466,14 +485,15 @@ Zn-3.0%. B-0.5%.`,
     ingredients: ['Natural compounds', 'Organic matter', 'Photosynthesis enhancers', 'Beneficial microbes'],
     safetyTips: ['Apply during daylight', 'Ensure adequate sunlight', 'Store in cool place', 'Follow application rates'],
     price: '₹1,550',
-    inStock: true
+    inStock: true,
+    application: 'All Crops'
   },
   {
     id: 'melon-plus',
     name: 'Melon Plus',
-    category: 'specialty',
+    category: 'liquids',
     image: '/uploads/melon plus.png',
-    shortDescription: 'Enhanced melon fertilizer for maximum yield and quality',
+    shortDescription: 'Micronutrient Mixture Fertilizers',
     fullDescription: `BENEFIT OF MELON PLUS:
 1. Improves photosynthesis in plants and entire plants will become greenish.
 2. It will help to overcome micronutrient deficiency in all crops.
@@ -493,12 +513,38 @@ Zn-3.0%, Fe-2.0%, Mn-1.0%, B-0.5%`,
     ingredients: ['Enhanced nutrients', 'Quality promoters', 'Organic matter', 'Beneficial microbes'],
     safetyTips: ['Follow growth stage timing', 'Monitor fruit quality', 'Store properly', 'Use clean equipment'],
     price: '₹1,900',
-    inStock: true
+    inStock: true,
+    application: 'All Crops'
+  },
+  {
+    id: 'super-grow',
+    name: 'Super Grow',
+    category: 'liquids',
+    image: '/uploads/super grow.png',
+    shortDescription: 'nature biostimulants',
+    fullDescription: `BENEFIT OF SUPER GROW:
+Super Grow contains organic constituents like humic, humates & Fulvic acids supported by naturally containing essential trace elements. Humic acids are reported to increase permeability of plant membranes, resulting in higher metabolic activity due to increased nutrient's availability & enzyme activity.
+
+RECOMMENDED DOSAGE:
+Two soil applications at 1.25 Ltr/ha.
+For Foliar Spray: 500ml of Super Grow in 200ltr of water
+
+COMPOSITION:
+Humates and Fulvates-22% (Liquid)`,
+    features: ['Organic constituents', 'Humic and fulvic acids', 'Essential trace elements', 'Increased nutrient availability'],
+    usage: ['Two soil applications at 1.25 Ltr/ha', 'Foliar spray: 500ml in 200L water', 'Apply during growing season', 'Reapply as needed'],
+    ingredients: ['Humates 22%', 'Fulvates', 'Essential trace elements', 'Organic acids'],
+    safetyTips: ['Follow recommended dosage', 'Store in cool, dry place', 'Keep away from children', 'Use protective equipment'],
+    price: '₹1,500',
+    inStock: true,
+    application: 'Groundnut'
   }
 ];
 
 export const categories = [
   { id: 'all', name: 'All Products', count: products.length },
+  { id: 'liquids', name: 'Liquids', count: products.filter(p => p.category === 'liquids').length },
+  { id: 'powder', name: 'Powder', count: products.filter(p => p.category === 'powder').length },
   { id: 'organic', name: 'Organic', count: products.filter(p => p.category === 'organic').length },
   { id: 'liquid', name: 'Liquid', count: products.filter(p => p.category === 'liquid').length },
   { id: 'granular', name: 'Granular', count: products.filter(p => p.category === 'granular').length },

@@ -10,6 +10,7 @@ import { AboutUs } from './pages/AboutUs';
 import { Products } from './pages/Products';
 import { ProductDetail } from './pages/ProductDetail';
 import { Contact } from './pages/Contact';
+import { Feedbacks } from './pages/Feedbacks';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path="/about" element={<AboutUs />} />
               <Route path="/products" element={<Products />} />
               <Route path="/products/:id" element={<ProductDetail />} />
+              <Route path="/feedbacks" element={<Feedbacks />} />
               <Route path="/contact" element={<Contact />} />
             </Routes>
           </main>

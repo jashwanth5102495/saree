@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Home } from 'lucide-react';
+import { Menu, X, Home, MessageSquare } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeToggle } from './ThemeToggle';
 import { useTheme } from '../contexts/ThemeContext';
@@ -26,6 +26,7 @@ export function Navigation() {
   const navigationLinks = [
     { to: '/products', label: 'Products' },
     { to: '/about', label: 'About Us' },
+    { to: '/feedbacks', label: 'Feedbacks' },
     { to: '/contact', label: 'Contact' },
   ];
 
@@ -93,6 +94,8 @@ export function Navigation() {
                 )}
               </Link>
             ))}
+
+
           </div>
 
           {/* Right Actions */}
@@ -165,11 +168,15 @@ export function Navigation() {
                   </motion.div>
                 ))}
 
+
+
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </motion.div>
+
+
     </div>
   );
 }
