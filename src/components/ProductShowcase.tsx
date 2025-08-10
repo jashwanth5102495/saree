@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Info, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface Product {
@@ -50,10 +50,7 @@ export function ProductShowcase() {
       .replace(/-+$/, '');         // Trim hyphens from end
   };
 
-  // Handle info button click
-  const handleInfoClick = (product: Product) => {
-    alert(`Product Info: ${product.name}\n\nClick here to learn more about this agricultural solution.`);
-  };
+
 
   // Manual scroll functions
   const scrollLeft = () => {
@@ -210,28 +207,9 @@ export function ProductShowcase() {
                           ? 'rgba(255, 255, 255, 0.95)' 
                           : 'rgba(255, 255, 255, 0.5)',
                       }}
-                      onClick={(e) => {
-                        // Prevent navigation if clicking on info buttons
-                        if ((e.target as HTMLElement).closest('.info-button')) {
-                          e.preventDefault();
-                        }
-                      }}
+
                     >
-                      {/* Info Button */}
-                      <motion.button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleInfoClick(product);
-                        }}
-                        className="info-button absolute top-3 right-3 z-20 w-8 h-8 bg-white/90 dark:bg-gray-800/90 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: isCenter ? 1 : 0 }}
-                        transition={{ duration: 0.4, ease: "easeOut" }}
-                      >
-                        <Info className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                      </motion.button>
+
 
                       {/* Product Image */}
                       <div className="h-3/4 p-4 flex items-center justify-center bg-white/90 dark:bg-black/90 group-hover:bg-green-50/90 dark:group-hover:bg-green-900/20 transition-colors duration-300">
@@ -261,19 +239,7 @@ export function ProductShowcase() {
                           </motion.p>
                         </div>
                         
-                        {/* Alternative Info Button in the name section */}
-                        <motion.button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            handleInfoClick(product);
-                          }}
-                          className="info-button absolute right-3 top-1/2 transform -translate-y-1/2 w-6 h-6 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <Info className="w-3 h-3 text-white" />
-                        </motion.button>
+
                       </div>
 
                       {/* Glow effect for center card */}
