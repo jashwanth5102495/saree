@@ -53,7 +53,7 @@ export function Feedbacks() {
 
       {/* Video Section */}
       <section className={`py-20 transition-colors duration-300 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -74,26 +74,88 @@ export function Feedbacks() {
             </motion.div>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="relative"
-          >
-            <div className="aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl">
-              <video
-                controls
-                className="w-full h-full object-cover"
-                poster="/uploads/video-poster.jpg"
-              >
-                <source src="/uploads/feedback.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-green-600 rounded-full flex items-center justify-center shadow-lg">
-              <Play className="w-8 h-8 text-white ml-1" />
-            </div>
-          </motion.div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+            {/* Video 1 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className={`rounded-2xl overflow-hidden shadow-2xl transition-colors duration-300 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
+            >
+              <div className="aspect-video">
+                <iframe
+                  src="https://www.youtube.com/embed/_-thdJu-ZOM"
+                  title="Customer Feedback Video 1"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="w-full h-full"
+                ></iframe>
+              </div>
+              <div className="p-6">
+                <h3 className={`text-xl font-semibold mb-2 transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                  Farmer Success Story
+                </h3>
+                <p className={`transition-colors duration-300 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                  Real experiences from farmers using our agricultural solutions
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Video 2 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className={`rounded-2xl overflow-hidden shadow-2xl transition-colors duration-300 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
+            >
+              <div className="aspect-video">
+                <iframe
+                  src="https://www.youtube.com/embed/HyZDAAB45lM"
+                  title="Customer Feedback Video 2"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="w-full h-full"
+                ></iframe>
+              </div>
+              <div className="p-6">
+                <h3 className={`text-xl font-semibold mb-2 transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                  Product Testimonial
+                </h3>
+                <p className={`transition-colors duration-300 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                  Discover how our products transformed agricultural practices
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Video 3 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className={`rounded-2xl overflow-hidden shadow-2xl transition-colors duration-300 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} lg:col-span-2 xl:col-span-1`}
+            >
+              <div className="aspect-video">
+                <iframe
+                  src="https://www.youtube.com/embed/zuXEXYTiOug"
+                  title="Customer Feedback Video 3"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="w-full h-full"
+                ></iframe>
+              </div>
+              <div className="p-6">
+                <h3 className={`text-xl font-semibold mb-2 transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                  Agricultural Innovation
+                </h3>
+                <p className={`transition-colors duration-300 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                  Learn about innovative farming techniques and results
+                </p>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
