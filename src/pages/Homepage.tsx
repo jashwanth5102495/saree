@@ -389,54 +389,78 @@ export function Homepage() {
             </p>
           </motion.div>
 
-          {/* First Row */}
+          {/* First Row - Now showing Natural Biostimulants, Non Ionic Spray Adjuvants, Micronutrient Mixture Fertilizers */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            {features.slice(0, 3).map((feature, index) => {
+            {features.slice(3, 6).map((feature, index) => {
               const Icon = feature.icon;
+              // Map feature titles to filter parameters
+              const getFilterParam = (title: string) => {
+                switch (title) {
+                  case 'Natural Biostimulants':
+                    return 'biostimulants';
+                  case 'Non Ionic Spray Adjuvants':
+                    return 'adjuvants';
+                  case 'Micronutrient Mixture Fertilizers':
+                    return 'micronutrients';
+                  default:
+                    return '';
+                }
+              };
+              
               return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.6, delay: index * 0.2 }}
-                  viewport={{ once: true }}
-                  className="relative text-center p-10 rounded-3xl bg-gradient-to-br from-green-50 to-emerald-50 dark:from-black dark:to-gray-900 hover:from-green-100 hover:to-emerald-100 dark:hover:from-gray-900 dark:hover:to-black transition-all duration-300 group shadow-xl hover:shadow-2xl border border-green-100 dark:border-gray-800 hover:-translate-y-2 cursor-pointer"
+                <Link
+                  key={index + 3}
+                  to={`/products?filter=${getFilterParam(feature.title)}`}
+                  className="block"
                 >
-                  <div 
-                    className="relative w-20 h-20 bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.6, delay: index * 0.2 }}
+                    viewport={{ once: true }}
+                    className="relative text-center p-10 rounded-3xl bg-gradient-to-br from-green-50 to-emerald-50 dark:from-black dark:to-gray-900 hover:from-green-100 hover:to-emerald-100 dark:hover:from-gray-900 dark:hover:to-black transition-all duration-300 group shadow-xl hover:shadow-2xl border border-green-100 dark:border-gray-800 hover:-translate-y-2 cursor-pointer"
                   >
-                    <Icon className="w-10 h-10 text-white" />
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">{feature.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">{feature.description}</p>
-                </motion.div>
+                    <div 
+                      className="relative w-20 h-20 bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"
+                    >
+                      <Icon className="w-10 h-10 text-white" />
+                    </div>
+                    
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">{feature.title}</h3>
+                    <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">{feature.description}</p>
+                  </motion.div>
+                </Link>
               );
             })}
           </div>
 
-          {/* Second Row */}
+          {/* Second Row - Now showing Organic Solutions, Water Efficient, Eco-Friendly */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            {features.slice(3, 6).map((feature, index) => {
+            {features.slice(0, 3).map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <motion.div
-                  key={index + 3}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.6, delay: index * 0.2 }}
-                  viewport={{ once: true }}
-                  className="relative text-center p-10 rounded-3xl bg-gradient-to-br from-green-50 to-emerald-50 dark:from-black dark:to-gray-900 hover:from-green-100 hover:to-emerald-100 dark:hover:from-gray-900 dark:hover:to-black transition-all duration-300 group shadow-xl hover:shadow-2xl border border-green-100 dark:border-gray-800 hover:-translate-y-2 cursor-pointer"
+                <Link
+                  key={index}
+                  to="/products"
+                  className="block"
                 >
-                  <div 
-                    className="relative w-20 h-20 bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.6, delay: index * 0.2 }}
+                    viewport={{ once: true }}
+                    className="relative text-center p-10 rounded-3xl bg-gradient-to-br from-green-50 to-emerald-50 dark:from-black dark:to-gray-900 hover:from-green-100 hover:to-emerald-100 dark:hover:from-gray-900 dark:hover:to-black transition-all duration-300 group shadow-xl hover:shadow-2xl border border-green-100 dark:border-gray-800 hover:-translate-y-2 cursor-pointer"
                   >
-                    <Icon className="w-10 h-10 text-white" />
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">{feature.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">{feature.description}</p>
-                </motion.div>
+                    <div 
+                      className="relative w-20 h-20 bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"
+                    >
+                      <Icon className="w-10 h-10 text-white" />
+                    </div>
+                    
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">{feature.title}</h3>
+                    <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">{feature.description}</p>
+                  </motion.div>
+                </Link>
               );
             })}
           </div>

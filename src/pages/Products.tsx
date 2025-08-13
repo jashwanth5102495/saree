@@ -1,31 +1,37 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import { products } from '../data/products';
 
 export function Products() {
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchParams] = useSearchParams();
+  const filterType = searchParams.get('filter');
 
-  const categories = [
-    { id: 'organic', name: 'Organic', count: products.filter(p => p.category === 'organic').length },
-    { id: 'liquid', name: 'Liquid', count: products.filter(p => p.category === 'liquid').length },
-    { id: 'granular', name: 'Granular', count: products.filter(p => p.category === 'granular').length },
-    { id: 'specialty', name: 'Specialty', count: products.filter(p => p.category === 'specialty').length },
-  ];
-
-  const filteredProducts = selectedCategory === 'all' 
-    ? products 
-    : products.filter(product => product.category === selectedCategory);
+  const filteredProducts = filterType 
+    ? products.filter(product => {
+        switch (filterType) {
+          case 'biostimulants':
+            return product.shortDescription.toLowerCase().includes('nature biostimulants');
+          case 'adjuvants':
+            return product.shortDescription.toLowerCase().includes('nonionic spray adjuvants');
+          case 'micronutrients':
+            return product.shortDescription.toLowerCase().includes('micronutrients') || 
+                   product.shortDescription.toLowerCase().includes('micronutrient mixture fertilizers');
+          default:
+            return true;
+        }
+      })
+    : products;
 
   const currentProduct = filteredProducts[currentProductIndex] || products[0];
 
-  // Auto-change product every 4 seconds
+  // Auto-change product every 7 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentProductIndex((prev) => (prev + 1) % filteredProducts.length);
-    }, 4000);
+    }, 7000);
 
     return () => clearInterval(interval);
   }, [filteredProducts.length]);
@@ -47,24 +53,7 @@ export function Products() {
       <div className="max-w-7xl mx-auto px-4 py-12">
         
         {/* Top Navigation */}
-        <div className="flex items-center justify-between mb-12">
-          <div className="flex items-center space-x-8">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => {
-                  setSelectedCategory(category.id);
-                  setCurrentProductIndex(0);
-                }}
-                className={`text-white/80 hover:text-white transition-colors font-medium ${
-                  selectedCategory === category.id ? 'text-white border-b-2 border-white pb-1' : ''
-                }`}
-              >
-                {category.name}
-              </button>
-            ))}
-          </div>
-          
+        <div className="flex items-center justify-end mb-12">
           <Link
             to="/contact"
             className="border border-white/50 text-white px-6 py-2 rounded-lg hover:bg-white/10 transition-colors font-medium"
