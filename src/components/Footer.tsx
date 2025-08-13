@@ -69,8 +69,8 @@ export function Footer() {
                 </button>
               </div>
               <div className="flex items-center space-x-3">
-                <Mail className="w-5 h-5 text-green-400" />
-                <span className="text-gray-300">greenplanttech1998@gmail.com</span>
+                <Mail className="w-5 h-5 text-green-400 flex-shrink-0" />
+                <span className="text-gray-300">contactus@greenplanttechnologies.in</span>
               </div>
               <div className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-green-400 mt-1" />

@@ -33,7 +33,7 @@ ${formData.message}
       `;
 
       // Create mailto link
-      const mailtoLink = `mailto:greenplanttech1998@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+      const mailtoLink = `mailto:contactus@greenplanttechnologies.in?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
       
       // Open default email client
       window.location.href = mailtoLink;
@@ -122,7 +122,7 @@ ${formData.message}
                   <div>
                     <h3 className="font-semibold text-gray-900 dark:text-white">Email Us</h3>
                     <p className="text-gray-600 dark:text-gray-300 mt-1">
-                      greenplanttech1998@gmail.com
+                      contactus@greenplanttechnologies.in
                     </p>
                   </div>
                 </div>
