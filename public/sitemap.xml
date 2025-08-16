@@ -1,52 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Homepage -->
   <url>
     <loc>https://www.greenplanttechnologies.in/</loc>
-    <lastmod>2025-08-16</lastmod>
+    <lastmod>2025-08-16T13:44:33.515Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-  
-  <!-- Products -->
   <url>
     <loc>https://www.greenplanttechnologies.in/products</loc>
-    <lastmod>2025-08-16</lastmod>
+    <lastmod>2025-08-16T13:44:33.515Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-  
-  <!-- About Us -->
   <url>
     <loc>https://www.greenplanttechnologies.in/about</loc>
-    <lastmod>2025-08-16</lastmod>
+    <lastmod>2025-08-16T13:44:33.515Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
-  <!-- Contact -->
   <url>
     <loc>https://www.greenplanttechnologies.in/contact</loc>
-    <lastmod>2025-08-16</lastmod>
+    <lastmod>2025-08-16T13:44:33.515Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
-  <!-- Feedbacks -->
   <url>
     <loc>https://www.greenplanttechnologies.in/feedbacks</loc>
-    <lastmod>2025-08-16</lastmod>
+    <lastmod>2025-08-16T13:44:33.515Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-  
-  <!-- Product Details (example, add more as needed) -->
-  <!-- 
-  <url>
-    <loc>https://www.greenplanttechnologies.in/product/example-product</loc>
-    <lastmod>2025-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  -->
 </urlset>
