@@ -29,15 +29,20 @@ async function submitSitemap() {
   });
 }
 
-// Show instructions and submit if needed
-console.log('\nTo submit your sitemap to search engines:');
-console.log('1. First, build your project:');
-console.log('   npm run build\n');
-console.log('2. Then submit your sitemap to Google Search Console:');
-console.log(`   Visit: https://search.google.com/search-console`);
-console.log('   - Add your property if not already added');
-console.log(`   - Go to Sitemaps`);
-console.log(`   - Enter 'sitemap.xml' and click 'Submit'\n');
+// Main function
+async function main() {
+  console.log('\nTo submit your sitemap to search engines:');
+  console.log('1. First, build your project:');
+  console.log('   npm run build\n');
+  console.log('2. Then submit your sitemap to Google Search Console:');
+  console.log(`   Visit: https://search.google.com/search-console`);
+  console.log('   - Add your property if not already added');
+  console.log(`   - Go to Sitemaps`);
+  console.log(`   - Enter 'sitemap.xml' and click 'Submit'\n');
 
-// Uncomment the following line to enable automatic submission
-// await submitSitemap();
+  // Uncomment the following line to enable automatic submission
+  // await submitSitemap();
+}
+
+// Run the main function
+main().catch(console.error);
