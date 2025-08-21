@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Home, MessageSquare } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Menu, X, Home, User, LogOut, Settings, ShoppingBag, Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeToggle } from './ThemeToggle';
 import { useTheme } from '../contexts/ThemeContext';
@@ -8,7 +8,9 @@ import { useTheme } from '../contexts/ThemeContext';
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [user, setUser] = useState<any>(null);
   const location = useLocation();
+  const navigate = useNavigate();
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -20,15 +22,65 @@ export function Navigation() {
   }, []);
 
   useEffect(() => {
+    // Check for stored user data and validate token
+    const checkAuthStatus = async () => {
+      const storedUser = localStorage.getItem('user');
+      const token = localStorage.getItem('token');
+      
+      if (storedUser && token) {
+        try {
+          // Validate token with server
+          const response = await fetch('/api/auth/verify', {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+          
+          if (response.ok) {
+            const data = await response.json();
+            setUser(data.user);
+          } else {
+            // Token is invalid, clear storage
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            setUser(null);
+          }
+        } catch (error) {
+          console.error('Token validation error:', error);
+          // On network error, still use stored user data
+          setUser(JSON.parse(storedUser));
+        }
+      }
+    };
+    
+    checkAuthStatus();
+  }, []);
+
+  useEffect(() => {
     setIsOpen(false);
   }, [location]);
 
   const navigationLinks = [
     { to: '/products', label: 'Products' },
+    { to: '/favorites', label: 'Favorites' },
     { to: '/about', label: 'About Us' },
-    { to: '/feedbacks', label: 'Feedbacks' },
     { to: '/contact', label: 'Contact' },
   ];
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null);
+    navigate('/');
+  };
+
+  const getDashboardLink = () => {
+    if (!user) return null;
+    if (user.role === 'admin') return '/admin-dashboard';
+    if (user.role === 'designer') return '/designer-dashboard';
+    return null;
+  };
 
   // Force dark styling on homepage
   const isHomepage = location.pathname === '/';
@@ -52,13 +104,13 @@ export function Navigation() {
 
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <img
-              src={isHomepage ? '/uploads/dark logo.png' : (theme === 'light' ? '/uploads/dark logo.png' : '/uploads/light logo.png')}
-              alt="Green Plant Technologies"
-              className="w-8 h-8 object-contain"
+            <img 
+              src="/uploads/dark logo.png" 
+              alt="SOWRAASHI Logo" 
+              className="w-10 h-10 object-contain"
             />
             <span className="font-bold text-lg text-white">
-              Green Plant Technologies
+              SOWRAASHI
             </span>
           </Link>
 
@@ -99,7 +151,42 @@ export function Navigation() {
           </div>
 
           {/* Right Actions */}
-          <div className="flex items-center">
+          <div className="flex items-center space-x-4">
+            {user ? (
+              <>
+                {getDashboardLink() && (
+                  <Link
+                    to={getDashboardLink()!}
+                    className="relative p-2 rounded-lg transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/10"
+                    title={`${user.role} Dashboard`}
+                  >
+                    {user.role === 'admin' ? <Settings className="w-5 h-5" /> : <ShoppingBag className="w-5 h-5" />}
+                  </Link>
+                )}
+                <Link
+                  to="/profile"
+                  className="relative p-2 rounded-lg transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/10"
+                  title="Profile"
+                >
+                  <User className="w-5 h-5" />
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="relative p-2 rounded-lg transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/10"
+                  title="Logout"
+                >
+                  <LogOut className="w-5 h-5" />
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className="relative p-2 rounded-lg transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/10"
+                title="Login"
+              >
+                <User className="w-5 h-5" />
+              </Link>
+            )}
             <ThemeToggle />
           </div>
         </div>
@@ -107,12 +194,12 @@ export function Navigation() {
         {/* Mobile Navigation */}
         <div className="md:hidden flex items-center justify-between max-w-7xl mx-auto px-4">
           <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
-            <img
-              src={isHomepage ? '/uploads/dark logo.png' : (theme === 'light' ? '/uploads/dark logo.png' : '/uploads/light logo.png')}
-              alt="Green Plant Technologies"
-              className="w-6 h-6 object-contain"
+            <img 
+              src="/uploads/dark logo.png" 
+              alt="SOWRAASHI Logo" 
+              className="w-8 h-8 object-contain"
             />
-            <span className="font-bold text-sm text-white whitespace-nowrap">GPT</span>
+            <span className="font-bold text-sm text-white whitespace-nowrap">SOWRAASHI</span>
           </Link>
 
           <div className="flex items-center space-x-3 flex-shrink-0">
@@ -167,6 +254,67 @@ export function Navigation() {
                     </Link>
                   </motion.div>
                 ))}
+                
+                {/* Mobile Auth Links */}
+                {user ? (
+                  <>
+                    {getDashboardLink() && (
+                      <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.4 }}
+                      >
+                        <Link
+                          to={getDashboardLink()!}
+                          className="flex items-center space-x-2 px-3 py-2 font-medium transition-all duration-200 text-gray-300 hover:text-white"
+                        >
+                          {user.role === 'admin' ? <Settings className="w-4 h-4" /> : <ShoppingBag className="w-4 h-4" />}
+                          <span>{user.role} Dashboard</span>
+                        </Link>
+                      </motion.div>
+                    )}
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.5 }}
+                    >
+                      <Link
+                        to="/profile"
+                        className="flex items-center space-x-2 px-3 py-2 font-medium transition-all duration-200 text-gray-300 hover:text-white"
+                      >
+                        <User className="w-4 h-4" />
+                        <span>Profile</span>
+                      </Link>
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.6 }}
+                    >
+                      <button
+                        onClick={handleLogout}
+                        className="flex items-center space-x-2 px-3 py-2 font-medium transition-all duration-200 text-gray-300 hover:text-white w-full text-left"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        <span>Logout</span>
+                      </button>
+                    </motion.div>
+                  </>
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <Link
+                      to="/login"
+                      className="flex items-center space-x-2 px-3 py-2 font-medium transition-all duration-200 text-gray-300 hover:text-white"
+                    >
+                      <User className="w-4 h-4" />
+                      <span>Login</span>
+                    </Link>
+                  </motion.div>
+                )}
 
 
 

@@ -66,7 +66,7 @@ ${formData.message}
   return (
     <div className="min-h-screen pt-16 bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="py-20 bg-green-600 text-white">
+      <section className="py-20 bg-gradient-to-r from-amber-600 to-yellow-600 text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -75,7 +75,7 @@ ${formData.message}
           >
             <h1 className="text-5xl md:text-6xl font-bold mb-6">Contact Us</h1>
             <p className="text-xl md:text-2xl opacity-90">
-              Get in touch with our agricultural experts and discover how we can help your farming operations
+              Get in touch with our saree experts and discover our exquisite collection of traditional and designer sarees
             </p>
           </motion.div>
         </div>
@@ -95,46 +95,44 @@ ${formData.message}
               
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
-                  <MapPin className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
+                  <MapPin className="w-6 h-6 text-amber-600 mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white">Visit Our Office</h3>
+                    <h3 className="font-semibold text-gray-900 dark:text-white">Visit Our Boutique</h3>
                     <p className="text-gray-600 dark:text-gray-300 mt-1">
-                      No. 134, KEB Office Beside<br />
-                      Vijayapura Road, Devanahalli<br />
-                      Bengaluru Rural District - 562110
+                      First floor, Manjunath arcade,<br />
+                      No -21/38, main road, opposite Medplus,<br />
+                      Bengaluru, 560064, KA, IN
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <Phone className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
+                  <Phone className="w-6 h-6 text-amber-600 mt-1 flex-shrink-0" />
                   <div>
                     <h3 className="font-semibold text-gray-900 dark:text-white">Call Us</h3>
                     <p className="text-gray-600 dark:text-gray-300 mt-1">
-                      +91 9513487926<br />
-                      +91 8310355433
+                      +91 9740925835
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <Mail className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
+                  <Mail className="w-6 h-6 text-amber-600 mt-1 flex-shrink-0" />
                   <div>
                     <h3 className="font-semibold text-gray-900 dark:text-white">Email Us</h3>
                     <p className="text-gray-600 dark:text-gray-300 mt-1">
-                      contactus@greenplanttechnologies.in
+                      info@sowraashi.com
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <Clock className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
+                  <Clock className="w-6 h-6 text-amber-600 mt-1 flex-shrink-0" />
                   <div>
                     <h3 className="font-semibold text-gray-900 dark:text-white">Business Hours</h3>
                     <p className="text-gray-600 dark:text-gray-300 mt-1">
-                      Monday - Friday: 8:00 AM - 6:00 PM<br />
-                      Saturday: 9:00 AM - 4:00 PM<br />
-                      Sunday: Closed
+                      Monday - Saturday: 10:00 AM - 8:00 PM<br />
+                      Sunday: 11:00 AM - 6:00 PM
                     </p>
                   </div>
                 </div>
@@ -177,7 +175,7 @@ ${formData.message}
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                       placeholder="Enter your full name"
                     />
                   </div>
@@ -193,7 +191,7 @@ ${formData.message}
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                       placeholder="Enter your email"
                     />
                   </div>
@@ -202,7 +200,7 @@ ${formData.message}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="company" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Company/Farm Name
+                      Organization/Event Name
                     </label>
                     <input
                       type="text"
@@ -210,8 +208,8 @@ ${formData.message}
                       name="company"
                       value={formData.company}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                      placeholder="Enter your company or farm name"
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      placeholder="Enter your organization or event name"
                     />
                   </div>
 
@@ -225,13 +223,14 @@ ${formData.message}
                       required
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                     >
                       <option value="">Select a subject</option>
-                      <option value="product-inquiry">Product Inquiry</option>
-                      <option value="technical-support">Technical Support</option>
+                      <option value="saree-inquiry">Saree Collection Inquiry</option>
+                      <option value="custom-design">Custom Design Request</option>
+                      <option value="bridal-consultation">Bridal Consultation</option>
                       <option value="bulk-order">Bulk Order</option>
-                      <option value="partnership">Partnership Opportunity</option>
+                      <option value="alteration-service">Alteration Services</option>
                       <option value="feedback">Feedback</option>
                       <option value="other">Other</option>
                     </select>
@@ -249,15 +248,15 @@ ${formData.message}
                     rows={6}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white resize-none"
-                    placeholder="Tell us how we can help you..."
+                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white resize-none"
+                    placeholder="Tell us about your saree requirements..."
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-green-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
+                  className="w-full bg-amber-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-amber-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
                 >
                   {isSubmitting ? (
                     <>
@@ -288,20 +287,20 @@ ${formData.message}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
-                question: "What is the minimum order quantity for bulk purchases?",
-                answer: "Our minimum bulk order is 50 units. We offer significant discounts for larger quantities and can customize packaging for wholesale distributors."
+                question: "Do you offer custom saree designs?",
+                answer: "Yes, we specialize in custom saree designs. Our expert designers work closely with you to create unique pieces that reflect your personal style and preferences."
               },
               {
-                question: "How long does shipping typically take?",
-                answer: "Standard shipping takes 3-5 business days within the continental US. Expedited shipping options are available for urgent orders."
+                question: "What types of sarees do you offer?",
+                answer: "We offer a wide range including silk sarees, cotton sarees, designer sarees, bridal collections, party wear, and traditional handloom sarees from various regions of India."
               },
               {
-                question: "Do you offer technical support for product application?",
-                answer: "Yes, our team of agricultural experts provides comprehensive technical support including application guidance, soil testing recommendations, and ongoing consultation."
+                question: "Do you provide alteration services?",
+                answer: "Yes, we provide professional alteration and fitting services to ensure your saree fits perfectly. Our skilled tailors can adjust blouses and make custom modifications."
               },
               {
-                question: "Are your products certified organic?",
-                answer: "Many of our products are OMRI-listed and certified organic. Each product page clearly indicates its certification status and approved uses."
+                question: "Can I visit your boutique for a personal consultation?",
+                answer: "Absolutely! We encourage personal consultations at our boutique. Our experts can help you choose the perfect saree for any occasion and provide styling advice."
               }
             ].map((faq, index) => (
               <div key={index} className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">

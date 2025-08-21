@@ -1,29 +1,21 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, ChevronRight } from 'lucide-react';
+import { ArrowRight, ChevronRight, Heart } from 'lucide-react';
 import { products } from '../data/products';
 
 export function Products() {
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const [searchParams] = useSearchParams();
   const filterType = searchParams.get('filter');
+  const [favorites, setFavorites] = useState<string[]>(() => {
+    const saved = localStorage.getItem('favorites');
+    return saved ? JSON.parse(saved) : [];
+  });
 
-  const filteredProducts = filterType 
-    ? products.filter(product => {
-        switch (filterType) {
-          case 'biostimulants':
-            return product.shortDescription.toLowerCase().includes('nature biostimulants');
-          case 'adjuvants':
-            return product.shortDescription.toLowerCase().includes('nonionic spray adjuvants');
-          case 'micronutrients':
-            return product.shortDescription.toLowerCase().includes('micronutrients') || 
-                   product.shortDescription.toLowerCase().includes('micronutrient mixture fertilizers');
-          default:
-            return true;
-        }
-      })
-    : products;
+  const filteredProducts = products.filter(product => 
+    ['silk', 'cotton', 'designer', 'bridal', 'party', 'casual'].includes(product.category)
+  );
 
   const currentProduct = filteredProducts[currentProductIndex] || products[0];
 
@@ -38,6 +30,16 @@ export function Products() {
 
   const nextProduct = () => {
     setCurrentProductIndex((prev) => (prev + 1) % filteredProducts.length);
+  };
+
+  const toggleFavorite = (productId: string) => {
+    setFavorites(prev => {
+      const newFavorites = prev.includes(productId)
+        ? prev.filter(id => id !== productId)
+        : [...prev, productId];
+      localStorage.setItem('favorites', JSON.stringify(newFavorites));
+      return newFavorites;
+    });
   };
 
   return (
@@ -143,7 +145,7 @@ export function Products() {
               {/* Product Image Container */}
               <div className="relative w-96 h-96 flex items-center justify-center">
                 {/* Glow Effect */}
-                <div className="absolute inset-0 bg-gradient-to-b from-green-300/30 to-black/30 rounded-full blur-3xl"></div>
+                  <div className="absolute inset-0 bg-gradient-to-b from-yellow-300/30 to-amber-400/30 rounded-full blur-3xl"></div>
                 
                 {/* Product Image */}
                 <img
@@ -253,57 +255,97 @@ export function Products() {
         </div>
       </div>
 
-      {/* All Products Section - Changed from white to gradient */}
-      <section id="all-products" className="py-24 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 dark:from-black dark:via-gray-900 dark:to-black">
+      {/* All Products Section - Updated for Sarees */}
+      <section id="all-products" className="py-24 bg-gradient-to-br from-pink-50 via-purple-50 to-rose-50 dark:from-black dark:via-gray-900 dark:to-black">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-green-700 to-emerald-700 bg-clip-text text-transparent mb-4">All Products</h2>
-            <p className="text-gray-700 dark:text-gray-300 text-lg">Explore our complete range of agricultural solutions</p>
+            <h2 className="text-4xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-4">All Products</h2>
+            <p className="text-gray-700 dark:text-gray-300 text-lg">Explore our complete range of exquisite saree collections</p>
           </div>
 
           {/* Products Grid */}
           <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {products.map((product, index) => (
+            {filteredProducts.map((product, index) => (
               <motion.div
                 key={product.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white/80 dark:bg-black/80 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group border border-green-200/50 dark:border-gray-800 hover:border-green-300 dark:hover:border-green-600"
+                className="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700"
               >
-                <div className="relative overflow-hidden rounded-t-xl">
+                <div className="relative overflow-hidden">
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-48 object-contain bg-gradient-to-br from-green-50 to-emerald-50 group-hover:scale-105 transition-transform duration-300 p-4"
+                    className="w-full h-64 object-contain bg-gray-50 dark:bg-gray-700 group-hover:scale-110 transition-transform duration-500 p-4"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = 'https://via.placeholder.com/300x200/f3f4f6/6b7280?text=Image+Not+Found';
+                    }}
                   />
-                  <div className="absolute top-3 right-3">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      product.inStock ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                  {/* Favorite Heart Button */}
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      toggleFavorite(product.id);
+                    }}
+                    className="absolute top-4 right-4 p-2 bg-white/90 hover:bg-white rounded-full shadow-lg transition-all duration-300 hover:scale-110 z-50"
+                    title={favorites.includes(product.id) ? 'Remove from favorites' : 'Add to favorites'}
+                    style={{ zIndex: 9999 }}
+                  >
+                    <Heart
+                      className={`w-5 h-5 transition-colors duration-300 ${
+                        favorites.includes(product.id)
+                          ? 'text-red-500 fill-red-500'
+                          : 'text-gray-600 hover:text-red-500'
+                      }`}
+                    />
+                  </button>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute bottom-4 left-4 right-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 group-hover:opacity-100">
+                    <Link
+                      to={`/products/${product.id}`}
+                      className="inline-flex items-center space-x-2 bg-white/90 text-gray-900 px-4 py-2 rounded-lg font-medium hover:bg-white transition-colors"
+                    >
+                      <span>View Details</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </div>
+                
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-pink-600 dark:text-pink-400 bg-pink-100 dark:bg-pink-900/30 px-3 py-1 rounded-full capitalize">
+                      {product.category}
+                    </span>
+                    <span className={`text-sm font-medium px-3 py-1 rounded-full ${
+                      product.inStock 
+                        ? 'text-green-600 bg-green-100 dark:text-green-400 dark:bg-green-900/30' 
+                        : 'text-red-600 bg-red-100 dark:text-red-400 dark:bg-red-900/30'
                     }`}>
                       {product.inStock ? 'In Stock' : 'Out of Stock'}
                     </span>
                   </div>
-                </div>
-
-                <div className="p-6">
-                  <div className="mb-3">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-green-700 dark:group-hover:text-green-400 transition-colors">
-                      {product.name}
-                    </h3>
-                  </div>
-
-                  <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm line-clamp-2">
+                  
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">
+                    {product.name}
+                  </h3>
+                  
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
                     {product.shortDescription}
                   </p>
-
-                  <Link
-                    to={`/products/${product.id}`}
-                    className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white text-center py-2 px-4 rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-300 font-medium text-sm block shadow-md hover:shadow-lg"
-                  >
-                    View Details
-                  </Link>
+                  
+                  <div className="flex items-center justify-between">
+                    <Link
+                      to={`/products/${product.id}`}
+                      className="text-pink-600 hover:text-pink-700 dark:text-pink-400 dark:hover:text-pink-300 font-medium text-sm flex items-center space-x-1"
+                    >
+                      <span>View Details</span>
+                      <ChevronRight className="w-4 h-4" />
+                    </Link>
+                  </div>
                 </div>
               </motion.div>
             ))}

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Users, Target, Globe, Leaf, Heart, Droplets, Shield, Sprout, Zap, FlaskConical } from 'lucide-react';
+import { Users, Target, Globe, Leaf, Heart, Droplets, Shield, Sprout, Zap, FlaskConical, Sparkles, Crown, Star } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 
 export function AboutUs() {
@@ -7,24 +7,24 @@ export function AboutUs() {
   
   const values = [
     {
-      icon: Leaf,
-      title: 'Sustainability',
-      description: 'We are committed to developing products that support sustainable agricultural practices while protecting our planet for future generations.'
-    },
-    {
-      icon: Target,
-      title: 'Innovation',
-      description: 'Continuous research and development drive our mission to create cutting-edge solutions that meet the evolving needs of modern agriculture.'
-    },
-    {
       icon: Heart,
-      title: 'Quality',
-      description: 'Every product undergoes rigorous testing to ensure the highest quality standards, providing farmers with reliable and effective solutions.'
+      title: 'Tradition & Love',
+      description: 'Every saree is crafted with deep respect for traditional techniques, infused with love and care that has been passed down through generations.'
+    },
+    {
+      icon: Crown,
+      title: 'Premium Quality',
+      description: 'We source the finest fabrics and materials to ensure each saree meets the highest standards of quality, elegance, and durability.'
+    },
+    {
+      icon: Sparkles,
+      title: 'Diverse Collection',
+      description: 'From traditional silk sarees to contemporary designs, we offer an extensive range to suit every occasion and personal style.'
     },
     {
       icon: Users,
-      title: 'Partnership',
-      description: 'We work closely with farmers, researchers, and agricultural communities to understand needs and develop tailored solutions.'
+      title: 'Customer Care',
+      description: 'We work closely with our customers to understand their needs and help them find the perfect saree for their special moments.'
     }
   ];
 
@@ -33,16 +33,16 @@ export function AboutUs() {
   return (
     <div className={`min-h-screen pt-16 transition-colors duration-300 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-r from-green-600 to-green-800 text-white">
+      <section className="py-20 bg-gradient-to-r from-amber-600 to-yellow-700 text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">About Us</h1>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">About SOWRAASHI</h1>
             <p className="text-xl md:text-2xl opacity-90">
-              Pioneering sustainable agriculture through innovative, eco-friendly solutions
+              Where tradition meets elegance - crafting beautiful sarees with love and heritage
             </p>
           </motion.div>
         </div>
@@ -53,16 +53,16 @@ export function AboutUs() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className={`text-4xl font-bold mb-4 transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-              Why Choose Our <span className="text-green-600">Solutions?</span>
+              Why Choose <span className="text-amber-600">SOWRAASHI?</span>
             </h2>
             <p className={`text-xl max-w-3xl mx-auto transition-colors duration-300 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-              We provide cutting-edge agricultural solutions that help farmers achieve better yields while maintaining environmental sustainability.
+              At SOWRAASHI, we believe every saree tells a story. Our collection celebrates the rich heritage of Indian textiles while embracing contemporary elegance.
             </p>
           </div>
 
           {/* First Row - 3 boxes */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-8">
-            {/* Box 1: Organic Solutions */}
+            {/* Box 1: Traditional Craftsmanship */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -78,32 +78,32 @@ export function AboutUs() {
                   : 'bg-gradient-to-br from-white to-gray-50 hover:from-gray-50 hover:to-white border border-gray-200'
               }`}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-green-400/10 to-blue-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-400/10 to-yellow-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative z-10">
                 <motion.div 
-                  className="w-20 h-20 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl"
+                  className="w-20 h-20 bg-gradient-to-r from-amber-500 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl"
                   whileHover={{ 
                     scale: 1.1,
                     rotate: 5,
                     transition: { duration: 0.3 }
                   }}
                 >
-                  <Leaf className="w-10 h-10 text-white" />
+                  <Heart className="w-10 h-10 text-white" />
                 </motion.div>
                 <h3 className={`text-xl font-bold mb-4 transition-colors duration-300 ${
-                  theme === 'dark' ? 'text-white group-hover:text-green-400' : 'text-gray-900 group-hover:text-green-600'
+                  theme === 'dark' ? 'text-white group-hover:text-amber-400' : 'text-gray-900 group-hover:text-amber-600'
                 }`}>
-                  Organic Solutions
+                  Traditional Craftsmanship
                 </h3>
                 <p className={`leading-relaxed transition-colors duration-300 ${
                   theme === 'dark' ? 'text-gray-300 group-hover:text-gray-200' : 'text-gray-600 group-hover:text-gray-700'
                 }`}>
-                  Natural fertilizers that enhance soil health and promote sustainable growth.
+                  Each saree is meticulously handcrafted using time-honored techniques passed down through generations.
                 </p>
               </div>
             </motion.div>
 
-            {/* Box 2: Water Efficient */}
+            {/* Box 2: Premium Fabrics */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -119,32 +119,32 @@ export function AboutUs() {
                   : 'bg-gradient-to-br from-white to-gray-50 hover:from-gray-50 hover:to-white border border-gray-200'
               }`}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-green-400/10 to-blue-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-400/10 to-yellow-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative z-10">
                 <motion.div 
-                  className="w-20 h-20 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl"
+                  className="w-20 h-20 bg-gradient-to-r from-amber-500 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl"
                   whileHover={{ 
                     scale: 1.1,
                     rotate: 5,
                     transition: { duration: 0.3 }
                   }}
                 >
-                  <Droplets className="w-10 h-10 text-white" />
+                  <Crown className="w-10 h-10 text-white" />
                 </motion.div>
                 <h3 className={`text-xl font-bold mb-4 transition-colors duration-300 ${
-                  theme === 'dark' ? 'text-white group-hover:text-green-400' : 'text-gray-900 group-hover:text-green-600'
+                  theme === 'dark' ? 'text-white group-hover:text-amber-400' : 'text-gray-900 group-hover:text-amber-600'
                 }`}>
-                  Water Efficient
+                  Premium Fabrics
                 </h3>
                 <p className={`leading-relaxed transition-colors duration-300 ${
                   theme === 'dark' ? 'text-gray-300 group-hover:text-gray-200' : 'text-gray-600 group-hover:text-gray-700'
                 }`}>
-                  Advanced formulations that reduce water usage while maximizing nutrient uptake.
+                  We source only the finest silk, cotton, and blended fabrics to ensure luxurious feel and lasting beauty.
                 </p>
               </div>
             </motion.div>
 
-            {/* Box 3: Eco-Friendly */}
+            {/* Box 3: Diverse Collection */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -160,27 +160,27 @@ export function AboutUs() {
                   : 'bg-gradient-to-br from-white to-gray-50 hover:from-gray-50 hover:to-white border border-gray-200'
               }`}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-green-400/10 to-blue-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-400/10 to-yellow-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative z-10">
                 <motion.div 
-                  className="w-20 h-20 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl"
+                  className="w-20 h-20 bg-gradient-to-r from-amber-500 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl"
                   whileHover={{ 
                     scale: 1.1,
                     rotate: 5,
                     transition: { duration: 0.3 }
                   }}
                 >
-                  <Shield className="w-10 h-10 text-white" />
+                  <Sparkles className="w-10 h-10 text-white" />
                 </motion.div>
                 <h3 className={`text-xl font-bold mb-4 transition-colors duration-300 ${
-                  theme === 'dark' ? 'text-white group-hover:text-green-400' : 'text-gray-900 group-hover:text-green-600'
+                  theme === 'dark' ? 'text-white group-hover:text-amber-400' : 'text-gray-900 group-hover:text-amber-600'
                 }`}>
-                  Eco-Friendly
+                  Diverse Collection
                 </h3>
                 <p className={`leading-relaxed transition-colors duration-300 ${
                   theme === 'dark' ? 'text-gray-300 group-hover:text-gray-200' : 'text-gray-600 group-hover:text-gray-700'
                 }`}>
-                  Environmentally safe products that protect ecosystems and biodiversity.
+                  From traditional Kanjeevaram to contemporary designer sarees - we have something for every occasion.
                 </p>
               </div>
             </motion.div>
@@ -188,7 +188,7 @@ export function AboutUs() {
 
           {/* Second Row - 3 boxes */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {/* Box 4: Natural Biostimulants */}
+            {/* Box 4: Handloom Heritage */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -204,32 +204,32 @@ export function AboutUs() {
                   : 'bg-gradient-to-br from-white to-gray-50 hover:from-gray-50 hover:to-white border border-gray-200'
               }`}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-green-400/10 to-blue-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-400/10 to-yellow-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative z-10">
                 <motion.div 
-                  className="w-20 h-20 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl"
+                  className="w-20 h-20 bg-gradient-to-r from-amber-500 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl"
                   whileHover={{ 
                     scale: 1.1,
                     rotate: 5,
                     transition: { duration: 0.3 }
                   }}
                 >
-                  <Sprout className="w-10 h-10 text-white" />
+                  <Globe className="w-10 h-10 text-white" />
                 </motion.div>
                 <h3 className={`text-xl font-bold mb-4 transition-colors duration-300 ${
-                  theme === 'dark' ? 'text-white group-hover:text-green-400' : 'text-gray-900 group-hover:text-green-600'
+                  theme === 'dark' ? 'text-white group-hover:text-amber-400' : 'text-gray-900 group-hover:text-amber-600'
                 }`}>
-                  Natural Biostimulants
+                  Handloom Heritage
                 </h3>
                 <p className={`leading-relaxed transition-colors duration-300 ${
                   theme === 'dark' ? 'text-gray-300 group-hover:text-gray-200' : 'text-gray-600 group-hover:text-gray-700'
                 }`}>
-                  Organic constituents like humic and fulvic acids that enhance plant growth, stress tolerance, and nutrient availability.
+                  Supporting traditional weavers and preserving the ancient art of handloom weaving for future generations.
                 </p>
               </div>
             </motion.div>
 
-            {/* Box 5: Non Ionic Spray Adjuvants */}
+            {/* Box 5: Custom Designs */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -245,32 +245,32 @@ export function AboutUs() {
                   : 'bg-gradient-to-br from-white to-gray-50 hover:from-gray-50 hover:to-white border border-gray-200'
               }`}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-green-400/10 to-blue-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-400/10 to-yellow-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative z-10">
                 <motion.div 
-                  className="w-20 h-20 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl"
+                  className="w-20 h-20 bg-gradient-to-r from-amber-500 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl"
                   whileHover={{ 
                     scale: 1.1,
                     rotate: 5,
                     transition: { duration: 0.3 }
                   }}
                 >
-                  <Zap className="w-10 h-10 text-white" />
+                  <Star className="w-10 h-10 text-white" />
                 </motion.div>
                 <h3 className={`text-xl font-bold mb-4 transition-colors duration-300 ${
-                  theme === 'dark' ? 'text-white group-hover:text-green-400' : 'text-gray-900 group-hover:text-green-600'
+                  theme === 'dark' ? 'text-white group-hover:text-amber-400' : 'text-gray-900 group-hover:text-amber-600'
                 }`}>
-                  Non Ionic Spray Adjuvants
+                  Custom Designs
                 </h3>
                 <p className={`leading-relaxed transition-colors duration-300 ${
                   theme === 'dark' ? 'text-gray-300 group-hover:text-gray-200' : 'text-gray-600 group-hover:text-gray-700'
                 }`}>
-                  Highly concentrated wetting agents that improve spray coverage and enhance agrochemical effectiveness.
+                  Personalized saree designs tailored to your preferences, making every piece unique and special.
                 </p>
               </div>
             </motion.div>
 
-            {/* Box 6: Micronutrient Mixture Fertilizers */}
+            {/* Box 6: Affordable Luxury */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -286,27 +286,27 @@ export function AboutUs() {
                   : 'bg-gradient-to-br from-white to-gray-50 hover:from-gray-50 hover:to-white border border-gray-200'
               }`}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-green-400/10 to-blue-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-400/10 to-yellow-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative z-10">
                 <motion.div 
-                  className="w-20 h-20 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl"
+                  className="w-20 h-20 bg-gradient-to-r from-amber-500 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl"
                   whileHover={{ 
                     scale: 1.1,
                     rotate: 5,
                     transition: { duration: 0.3 }
                   }}
                 >
-                  <FlaskConical className="w-10 h-10 text-white" />
+                  <Users className="w-10 h-10 text-white" />
                 </motion.div>
                 <h3 className={`text-xl font-bold mb-4 transition-colors duration-300 ${
-                  theme === 'dark' ? 'text-white group-hover:text-green-400' : 'text-gray-900 group-hover:text-green-600'
+                  theme === 'dark' ? 'text-white group-hover:text-amber-400' : 'text-gray-900 group-hover:text-amber-600'
                 }`}>
-                  Micronutrient Mixture Fertilizers
+                  Affordable Luxury
                 </h3>
                 <p className={`leading-relaxed transition-colors duration-300 ${
                   theme === 'dark' ? 'text-gray-300 group-hover:text-gray-200' : 'text-gray-600 group-hover:text-gray-700'
                 }`}>
-                  Water-soluble formulations containing chelated microelements for complete plant nutrition and deficiency correction.
+                  Premium quality sarees at competitive prices, making elegance accessible to every woman.
                 </p>
               </div>
             </motion.div>
@@ -347,25 +347,7 @@ export function AboutUs() {
         </div>
       </section>
 
-      {/* Deficiency Chart Section */}
-      <section className={`py-20 transition-colors duration-300 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className={`text-4xl font-bold mb-4 transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Micronutrient Deficiency Guide</h2>
-            <p className={`text-xl transition-colors duration-300 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-              Comprehensive chart showing plant nutrient deficiency symptoms and solutions
-            </p>
-          </div>
 
-          <div className="flex justify-center">
-            <img 
-              src="/uploads/leaf.png" 
-              alt="Micronutrient Deficiency Guide"
-              className="w-full max-w-4xl h-auto rounded-lg shadow-lg border border-gray-200"
-            />
-          </div>
-        </div>
-      </section>
 
       {/* Mission Section */}
       <section className="py-20 bg-green-600 text-white">

@@ -5,8 +5,8 @@ import { motion } from 'framer-motion';
 export function WhatsAppButton() {
   const handleWhatsAppClick = () => {
     // Using the primary phone number for WhatsApp
-    const phoneNumber = '919513487926'; // +91 9513487926 without + sign
-    const message = 'Hello! I am interested in your green plant technologies products.';
+    const phoneNumber = '919740925835'; // +91 9740925835 without + sign
+    const message = 'Hello! I am interested in your saree collections.';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };

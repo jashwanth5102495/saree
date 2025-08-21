@@ -9,8 +9,13 @@ import { Homepage } from './pages/Homepage';
 import { AboutUs } from './pages/AboutUs';
 import { Products } from './pages/Products';
 import { ProductDetail } from './pages/ProductDetail';
+import { Favorites } from './pages/Favorites';
 import { Contact } from './pages/Contact';
-import { Feedbacks } from './pages/Feedbacks';
+import { Profile } from './pages/Profile';
+import { Workshop } from './pages/Workshop';
+import DesignerDashboard from './pages/DesignerDashboard';
+import AdminDashboard from './pages/AdminDashboard';
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -25,8 +30,13 @@ function App() {
               <Route path="/about" element={<AboutUs />} />
               <Route path="/products" element={<Products />} />
               <Route path="/products/:id" element={<ProductDetail />} />
-              <Route path="/feedbacks" element={<Feedbacks />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/workshop" element={<Workshop />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/designer-dashboard" element={<DesignerDashboard />} />
+              <Route path="/admin-dashboard" element={<AdminDashboard />} />
             </Routes>
           </main>
           <Footer />

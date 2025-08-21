@@ -4,33 +4,18 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface Product {
-  id: number;
+  id: string;
   name: string;
   image: string;
 }
 
 const products: Product[] = [
-  { id: 1, name: 'Combi Pro', image: '/uploads/combi pro.png' },
-  { id: 2, name: 'G-BOR', image: '/uploads/G-BOR.png' },
-  { id: 3, name: 'Green Care', image: '/uploads/green care.png' },
-  { id: 4, name: 'Green Pro', image: '/uploads/green pro.png' },
-  { id: 5, name: 'Green Gro', image: '/uploads/GREENGRO.png' },
-  { id: 6, name: 'Jeevan Plus', image: '/uploads/JEEVAN PLUS.png' },
-  { id: 7, name: 'Lasya', image: '/uploads/lasya.png' },
-  { id: 8, name: 'Mango King', image: '/uploads/mango king.png' },
-  { id: 9, name: 'Melon Plus', image: '/uploads/melon plus.png' },
-  { id: 10, name: 'Melon Soil', image: '/uploads/melon soil.png' },
-  { id: 11, name: 'Micro', image: '/uploads/micro.png' },
-  { id: 12, name: 'Rich Roots', image: '/uploads/rich roots.png' },
-  { id: 13, name: 'Root Booster', image: '/uploads/Root Booster.png' },
-  { id: 14, name: 'Shine Citrus', image: '/uploads/shine citrus.png' },
-  { id: 15, name: 'Silicron', image: '/uploads/silicron.png' },
-  { id: 16, name: 'Sparsha', image: '/uploads/sparsha.png' },
-  { id: 17, name: 'Sun Shine', image: '/uploads/sun sgine.png' },
-  { id: 18, name: 'Swarna', image: '/uploads/swarna.png' },
-  { id: 19, name: 'Wake Up', image: '/uploads/wake up.png' },
-  { id: 20, name: 'X-SPA80', image: '/uploads/X-SPA80.png' },
-  { id: 21, name: 'Super Grow', image: '/uploads/super grow.png' },
+  { id: 'silk-saree-1', name: 'Elegant Silk Saree', image: '/uploads/1.png' },
+  { id: 'designer-saree-2', name: 'Cotton Comfort Saree', image: '/uploads/2.png' },
+  { id: 'cotton-saree-3', name: 'Designer Collection', image: '/uploads/3.png' },
+  { id: 'bridal-saree-4', name: 'Bridal Special', image: '/uploads/4.png' },
+  { id: 'party-saree-5', name: 'Party Wear Saree', image: '/uploads/5.png' },
+  { id: 'casual-saree-6', name: 'Casual Elegance', image: '/uploads/6.png' },
 ];
 
 export function ProductShowcase() {
@@ -102,7 +87,7 @@ export function ProductShowcase() {
   const extendedProducts = [...products, ...products, ...products];
 
   return (
-    <div className="py-16 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-black dark:to-gray-900 overflow-hidden">
+    <div className="py-16 bg-gradient-to-br from-pink-50 to-purple-50 dark:from-black dark:to-gray-900 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4">
         <motion.div 
           className="text-center mb-12"
@@ -113,12 +98,12 @@ export function ProductShowcase() {
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             Our{' '}
-            <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
               Products
             </span>
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Discover our comprehensive range of agricultural solutions designed to boost your crop yields
+            Discover our exquisite collection of sarees designed for every occasion and celebration
           </p>
         </motion.div>
 
@@ -130,7 +115,7 @@ export function ProductShowcase() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            <ChevronLeft className="w-6 h-6 text-green-600 dark:text-green-400" />
+            <ChevronLeft className="w-6 h-6 text-pink-600 dark:text-pink-400" />
           </motion.button>
 
           <motion.button
@@ -139,7 +124,7 @@ export function ProductShowcase() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            <ChevronRight className="w-6 h-6 text-green-600 dark:text-green-400" />
+            <ChevronRight className="w-6 h-6 text-pink-600 dark:text-pink-400" />
           </motion.button>
 
           <div 
@@ -200,7 +185,7 @@ export function ProductShowcase() {
                       to={`/products/${createSlug(product.name)}`}
                       className={`
                         block relative w-72 h-80 rounded-2xl overflow-hidden shadow-2xl mx-auto group cursor-pointer
-                        ${isCenter ? 'ring-4 ring-green-500/50 dark:ring-green-400/50' : ''}
+                        ${isCenter ? 'ring-4 ring-yellow-500/50 dark:ring-yellow-400/50' : ''}
                         transition-all duration-500 hover:shadow-3xl hover:scale-105
                       `}
                       style={{ 
@@ -213,7 +198,7 @@ export function ProductShowcase() {
 
 
                       {/* Product Image */}
-                      <div className="h-3/4 p-4 flex items-center justify-center bg-white/90 dark:bg-black/90 group-hover:bg-green-50/90 dark:group-hover:bg-green-900/20 transition-colors duration-300">
+                      <div className="h-3/4 p-4 flex items-center justify-center bg-white/90 dark:bg-black/90 group-hover:bg-amber-50/90 dark:group-hover:bg-amber-900/20 transition-colors duration-300">
                         <img
                           src={product.image}
                           alt={product.name}
@@ -226,7 +211,7 @@ export function ProductShowcase() {
                       </div>
                       
                       {/* Product Name */}
-                      <div className="h-1/4 p-4 flex items-center justify-center bg-gradient-to-t from-green-600/90 to-emerald-600/90 dark:from-green-700/90 dark:to-emerald-700/90 relative group-hover:from-green-700/90 group-hover:to-emerald-700/90 transition-all duration-300">
+                      <div className="h-1/4 p-4 flex items-center justify-center bg-gradient-to-t from-amber-500/90 to-yellow-500/90 dark:from-amber-600/90 dark:to-yellow-600/90 relative group-hover:from-amber-600/90 group-hover:to-yellow-600/90 transition-all duration-300">
                         <div className="text-center">
                           <h3 className="text-white font-bold text-lg">
                             {product.name}
@@ -248,7 +233,7 @@ export function ProductShowcase() {
                         <motion.div
                           className="absolute inset-0 rounded-2xl pointer-events-none"
                           style={{
-                            background: 'linear-gradient(45deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2))',
+                            background: 'linear-gradient(45deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.2))',
                             filter: 'blur(20px)',
                           }}
                           animate={{
@@ -270,12 +255,12 @@ export function ProductShowcase() {
 
             {/* Gradient overlays for smooth edges */}
             <motion.div 
-              className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-green-50 to-transparent dark:from-black dark:to-transparent pointer-events-none z-10"
+              className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-amber-50 to-transparent dark:from-black dark:to-transparent pointer-events-none z-10"
               animate={{ opacity: [0.5, 0.8, 0.5] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             />
             <motion.div 
-              className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-green-50 to-transparent dark:from-black dark:to-transparent pointer-events-none z-10"
+              className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-amber-50 to-transparent dark:from-black dark:to-transparent pointer-events-none z-10"
               animate={{ opacity: [0.5, 0.8, 0.5] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             />

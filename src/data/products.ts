@@ -1,7 +1,7 @@
 export interface Product {
   id: string;
   name: string;
-  category: 'organic' | 'mineral' | 'liquid' | 'granular' | 'specialty' | 'powder' | 'liquids';
+  category: 'organic' | 'mineral' | 'liquid' | 'granular' | 'specialty' | 'powder' | 'liquids' | 'silk' | 'cotton' | 'designer' | 'bridal' | 'party' | 'casual';
   image: string;
   shortDescription: string;
   fullDescription: string;
@@ -15,6 +15,144 @@ export interface Product {
 }
 
 export const products: Product[] = [
+  {
+    id: 'silk-saree-1',
+    name: 'Premium Silk Saree',
+    category: 'silk',
+    image: '/uploads/1.png',
+    shortDescription: 'Elegant silk saree with traditional patterns and rich colors',
+    fullDescription: `PREMIUM SILK SAREE COLLECTION:
+Exquisite handwoven silk saree featuring traditional motifs and vibrant colors. Perfect for special occasions and celebrations. Made from pure silk with intricate border designs and matching blouse piece.
+
+FEATURES:
+- Pure silk fabric
+- Traditional handwoven patterns
+- Rich color combinations
+- Matching blouse piece included
+- Perfect for weddings and festivals`,
+    features: ['Pure silk fabric', 'Handwoven patterns', 'Traditional motifs', 'Matching blouse piece'],
+    usage: ['Perfect for weddings', 'Ideal for festivals', 'Special occasions', 'Cultural events'],
+    ingredients: ['100% Pure Silk', 'Natural dyes', 'Gold thread work', 'Traditional weaving'],
+    safetyTips: ['Dry clean only', 'Store in cotton cloth', 'Avoid direct sunlight', 'Handle with care'],
+    price: '₹8,500',
+    inStock: true,
+    application: 'Traditional Wear'
+  },
+  {
+    id: 'designer-saree-2',
+    name: 'Designer Collection Saree',
+    category: 'designer',
+    image: '/uploads/2.png',
+    shortDescription: 'Contemporary designer saree with modern patterns and elegant finish',
+    fullDescription: `DESIGNER COLLECTION SAREE:
+Stunning designer saree crafted with modern aesthetics and contemporary patterns. Features unique color combinations and innovative design elements. Perfect for parties and social gatherings.
+
+FEATURES:
+- Contemporary design
+- Modern color palette
+- Innovative patterns
+- Premium fabric quality
+- Designer blouse piece`,
+    features: ['Contemporary design', 'Modern patterns', 'Premium fabric', 'Designer blouse'],
+    usage: ['Party wear', 'Social gatherings', 'Corporate events', 'Fashion shows'],
+    ingredients: ['Premium fabric blend', 'Modern dyes', 'Designer embellishments', 'Quality finishing'],
+    safetyTips: ['Gentle wash recommended', 'Iron on low heat', 'Store properly', 'Avoid harsh chemicals'],
+    price: '₹12,000',
+    inStock: true,
+    application: 'Party Wear'
+  },
+  {
+    id: 'bridal-saree-3',
+    name: 'Bridal Special Saree',
+    category: 'bridal',
+    image: '/uploads/3.png',
+    shortDescription: 'Luxurious bridal saree with heavy embroidery and golden work',
+    fullDescription: `BRIDAL SPECIAL SAREE:
+Magnificent bridal saree designed for your most special day. Features heavy embroidery work, golden threads, and luxurious fabric. Comes with matching accessories and designer blouse.
+
+FEATURES:
+- Heavy embroidery work
+- Golden thread detailing
+- Luxurious fabric
+- Matching accessories
+- Custom fitting available`,
+    features: ['Heavy embroidery', 'Golden thread work', 'Luxurious fabric', 'Matching accessories'],
+    usage: ['Wedding ceremonies', 'Bridal occasions', 'Reception parties', 'Special celebrations'],
+    ingredients: ['Premium silk', 'Gold threads', 'Heavy embroidery', 'Designer elements'],
+    safetyTips: ['Professional cleaning only', 'Careful storage required', 'Handle embroidery gently', 'Avoid moisture'],
+    price: '₹25,000',
+    inStock: true,
+    application: 'Bridal Wear'
+  },
+  {
+    id: 'cotton-saree-4',
+    name: 'Pure Cotton Saree',
+    category: 'cotton',
+    image: '/uploads/4.png',
+    shortDescription: 'Comfortable cotton saree perfect for daily wear and casual occasions',
+    fullDescription: `PURE COTTON SAREE:
+Comfortable and breathable cotton saree ideal for daily wear. Features simple yet elegant patterns with soft colors. Perfect for office wear and casual occasions.
+
+FEATURES:
+- 100% pure cotton
+- Breathable fabric
+- Comfortable wear
+- Easy maintenance
+- Affordable pricing`,
+    features: ['Pure cotton fabric', 'Breathable material', 'Easy maintenance', 'Comfortable fit'],
+    usage: ['Daily wear', 'Office wear', 'Casual occasions', 'Home wear'],
+    ingredients: ['100% Cotton', 'Natural dyes', 'Soft finishing', 'Quality weaving'],
+    safetyTips: ['Machine washable', 'Iron on medium heat', 'Air dry recommended', 'Store in dry place'],
+    price: '₹2,500',
+    inStock: true,
+    application: 'Casual Wear'
+  },
+  {
+    id: 'party-saree-5',
+    name: 'Party Wear Saree',
+    category: 'party',
+    image: '/uploads/5.png',
+    shortDescription: 'Glamorous party wear saree with shimmer and contemporary design',
+    fullDescription: `PARTY WEAR SAREE:
+Glamorous saree designed for parties and social events. Features shimmer work, contemporary patterns, and vibrant colors. Perfect for making a style statement.
+
+FEATURES:
+- Shimmer and glitter work
+- Contemporary design
+- Vibrant colors
+- Lightweight fabric
+- Easy draping`,
+    features: ['Shimmer work', 'Contemporary design', 'Vibrant colors', 'Lightweight fabric'],
+    usage: ['Party occasions', 'Social events', 'Celebrations', 'Night functions'],
+    ingredients: ['Synthetic blend', 'Shimmer threads', 'Modern dyes', 'Quality finishing'],
+    safetyTips: ['Dry clean preferred', 'Avoid rough handling', 'Store carefully', 'Iron on low heat'],
+    price: '₹6,500',
+    inStock: true,
+    application: 'Party Wear'
+  },
+  {
+    id: 'casual-saree-6',
+    name: 'Casual Elegant Saree',
+    category: 'casual',
+    image: '/uploads/6.png',
+    shortDescription: 'Elegant casual saree suitable for various occasions and comfortable wear',
+    fullDescription: `CASUAL ELEGANT SAREE:
+Versatile saree perfect for various occasions. Combines comfort with elegance, featuring subtle patterns and pleasant colors. Ideal for both casual and semi-formal events.
+
+FEATURES:
+- Versatile design
+- Comfortable fabric
+- Subtle patterns
+- Pleasant colors
+- Easy maintenance`,
+    features: ['Versatile design', 'Comfortable fabric', 'Subtle patterns', 'Easy maintenance'],
+    usage: ['Casual occasions', 'Semi-formal events', 'Family functions', 'Regular wear'],
+    ingredients: ['Quality fabric blend', 'Soft finishing', 'Natural colors', 'Durable weaving'],
+    safetyTips: ['Gentle wash', 'Medium heat ironing', 'Proper storage', 'Avoid bleaching'],
+    price: '₹4,000',
+    inStock: true,
+    application: 'Casual Wear'
+  },
   {
     id: 'greengro',
     name: 'GREENGRO',
