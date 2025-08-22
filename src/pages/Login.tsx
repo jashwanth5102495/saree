@@ -191,14 +191,15 @@ const Login: React.FC = () => {
 
           <div className="text-center">
             <div className="text-sm text-gray-300">
-              <p className="mb-2">Demo Credentials:</p>
+              <p className="mb-2">Access Credentials:</p>
               <div className="bg-gray-700 rounded-lg p-3 text-left border border-gray-600">
-                <p className="font-medium text-gray-200">Admin:</p>
-                <p className="text-xs text-gray-300">Username: admin | Password: admin123</p>
-                <p className="font-medium text-gray-200 mt-2">Designer:</p>
-                <p className="text-xs text-gray-300">Username: dis | Password: dis123</p>
+                <p className="font-medium text-gray-200">Admin Access:</p>
+                <p className="text-xs text-gray-300">Username: admin</p>
+                <p className="font-medium text-gray-200 mt-2">Designer Access:</p>
+                <p className="text-xs text-gray-300">Username: designer</p>
               </div>
-              <p className="text-xs text-gray-400 mt-2">Select your role above and use the corresponding credentials</p>
+              <p className="text-xs text-gray-400 mt-2">Contact administrator for password credentials</p>
+              <p className="text-xs text-red-400 mt-1">🔒 Secure authentication required</p>
             </div>
           </div>
         </form>

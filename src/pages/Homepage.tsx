@@ -1,12 +1,9 @@
 import { motion } from 'framer-motion';
-import { Leaf, Droplets, Shield } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Leaf, Droplets, Shield, Sprout, Zap, FlaskConical } from 'lucide-react';
 import { ProductShowcase } from '../components/ProductShowcase';
-import SpotlightCard from '../components/SpotlightCard';
 import '../assets/background.css';
 
 export function Homepage() {
-  const navigate = useNavigate();
 
   const features = [
     {
@@ -23,6 +20,21 @@ export function Homepage() {
       icon: Shield,
       title: 'Quality Assured',
       description: 'Premium quality materials and expert tailoring for perfect fit'
+    },
+    {
+      icon: Sprout,
+      title: 'Custom Designs',
+      description: 'Personalized saree designs tailored to your measurements and preferences'
+    },
+    {
+      icon: Zap,
+      title: 'Bridal Collection',
+      description: 'Stunning bridal sarees for your most special day'
+    },
+    {
+      icon: FlaskConical,
+      title: 'Party Wear',
+      description: 'Glamorous party wear sarees for social gatherings and events'
     }
   ];
 
@@ -124,7 +136,6 @@ export function Homepage() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => navigate('/products')}
                   className="px-8 py-4 bg-white text-black rounded-full font-semibold text-lg hover:bg-gray-200 transition-colors duration-300"
                 >
                   Explore
@@ -132,7 +143,6 @@ export function Homepage() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => navigate('/workshop')}
                   className="px-8 py-4 bg-amber-600 text-white rounded-full font-semibold text-lg hover:bg-amber-700 transition-colors duration-300"
                 >
                   Custom Designer
@@ -202,11 +212,6 @@ export function Homepage() {
         </div>
       </section>
 
-             {/* Product Showcase Section */}
-       <section className="py-16 bg-slate-800">
-        <ProductShowcase />
-      </section>
-
              {/* Features Section */}
        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-slate-900">
         <div className="max-w-7xl mx-auto">
@@ -225,7 +230,7 @@ export function Homepage() {
             </p>
           </motion.div>
           
-          <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
@@ -233,27 +238,26 @@ export function Homepage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                className="text-center p-6 rounded-2xl bg-gray-50 dark:bg-gray-800 hover:shadow-lg transition-all duration-300"
               >
-                <SpotlightCard 
-                  className="custom-spotlight-card" 
-                  spotlightColor="rgba(0, 229, 255, 0.2)"
-                >
-                  <div className="text-center">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full mb-6">
-                      <feature.icon className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-white mb-3">
-                      {feature.title}
-                    </h3>
-                    <p className="text-gray-300 leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </div>
-                </SpotlightCard>
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full mb-6">
+                  <feature.icon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  {feature.description}
+                </p>
               </motion.div>
             ))}
           </div>
         </div>
+      </section>
+
+             {/* Product Showcase Section */}
+       <section className="py-16 bg-slate-800">
+        <ProductShowcase />
       </section>
     </div>
   );

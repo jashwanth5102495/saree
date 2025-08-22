@@ -5,6 +5,7 @@ import { Navigation } from './components/Navigation';
 import { Footer } from './components/Footer';
 import { WhatsAppButton } from './components/WhatsAppButton';
 import { ScrollToTop } from './components/ScrollToTop';
+import ProtectedRoute from './components/ProtectedRoute';
 import { Homepage } from './pages/Homepage';
 import { AboutUs } from './pages/AboutUs';
 import { Products } from './pages/Products';
@@ -35,8 +36,22 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/workshop" element={<Workshop />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/designer-dashboard" element={<DesignerDashboard />} />
-              <Route path="/admin-dashboard" element={<AdminDashboard />} />
+              <Route 
+                path="/designer-dashboard" 
+                element={
+                  <ProtectedRoute requiredRole="designer">
+                    <DesignerDashboard />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/admin-dashboard" 
+                element={
+                  <ProtectedRoute requiredRole="admin">
+                    <AdminDashboard />
+                  </ProtectedRoute>
+                } 
+              />
             </Routes>
           </main>
           <Footer />

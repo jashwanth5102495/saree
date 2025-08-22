@@ -86,9 +86,9 @@ export function Navigation() {
   return (
     <div className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-6xl px-4">
       <motion.div
-        className={`transition-all duration-300 rounded-2xl px-6 py-2 ${isHomepage
-          ? 'bg-black/50 backdrop-blur-md shadow-xl'
-          : 'bg-black/50 backdrop-blur-md shadow-xl'
+        className={`transition-all duration-300 rounded-2xl px-6 py-4 ${isHomepage
+          ? 'bg-black/90 backdrop-blur-md shadow-xl'
+          : 'bg-black/90 backdrop-blur-md shadow-xl'
           }`}
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

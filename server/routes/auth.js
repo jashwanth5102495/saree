@@ -28,31 +28,31 @@ const authenticateToken = (req, res, next) => {
 const initializeUsers = async () => {
   try {
     // Check if admin exists
-    const adminExists = await User.findOne({ username: 'admin' });
+    const adminExists = await User.findOne({ username: process.env.ADMIN_USERNAME || 'admin' });
     if (!adminExists) {
       const admin = new User({
-        username: 'admin',
-        password: 'admin123',
+        username: process.env.ADMIN_USERNAME || 'admin',
+        password: process.env.ADMIN_PASSWORD || 'SecureAdminPassword123!',
         role: 'admin',
         name: 'Administrator',
         email: 'admin@sowraashi.com'
       });
       await admin.save();
-      console.log('Admin user created');
+      console.log('Admin user created with secure credentials');
     }
 
     // Check if designer exists
-    const designerExists = await User.findOne({ username: 'dis' });
+    const designerExists = await User.findOne({ username: process.env.DESIGNER_USERNAME || 'designer' });
     if (!designerExists) {
       const designer = new User({
-        username: 'dis',
-        password: 'dis123',
+        username: process.env.DESIGNER_USERNAME || 'designer',
+        password: process.env.DESIGNER_PASSWORD || 'SecureDesignerPassword123!',
         role: 'designer',
         name: 'Designer',
         email: 'designer@sowraashi.com'
       });
       await designer.save();
-      console.log('Designer user created');
+      console.log('Designer user created with secure credentials');
     }
   } catch (error) {
     console.error('Error initializing users:', error);

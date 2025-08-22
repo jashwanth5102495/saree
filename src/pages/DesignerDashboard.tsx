@@ -39,6 +39,7 @@ interface FormData {
   amount: string;
   advanceAmount: string;
   paymentMethod: string;
+  paymentStatus: string;
   presentDate: string;
   expectedDeliveryDate: string;
 }
@@ -46,9 +47,7 @@ interface FormData {
 const DesignerDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'new-order' | 'orders'>('new-order');
   const [orders, setOrders] = useState<Order[]>([]);
-  const [showQRCode, setShowQRCode] = useState(false);
-  const [currentOrderId, setCurrentOrderId] = useState<string | null>(null);
-  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     customerName: '',
@@ -58,6 +57,7 @@ const DesignerDashboard: React.FC = () => {
     amount: '',
     advanceAmount: '',
     paymentMethod: 'cash',
+    paymentStatus: 'pending',
     presentDate: new Date().toISOString().split('T')[0],
     expectedDeliveryDate: ''
   });
@@ -106,7 +106,7 @@ const DesignerDashboard: React.FC = () => {
         totalBill: formData.amount,
         advancePayment: formData.advanceAmount,
         paymentMethod: formData.paymentMethod,
-        paymentStatus: formData.paymentMethod === 'cash' ? 'paid' : 'pending',
+        paymentStatus: formData.paymentStatus,
         presentDate: formData.presentDate,
         deliveryDate: formData.expectedDeliveryDate
       };
@@ -120,17 +120,7 @@ const DesignerDashboard: React.FC = () => {
       });
 
       if (response.ok) {
-        const result = await response.json();
-        
-        // Show QR code if payment method is online
-        if (formData.paymentMethod === 'online') {
-          setCurrentOrderId(result.orderId || result._id);
-          setShowQRCode(true);
-        } else {
-          // Show success popup for cash payments
-          setShowSuccessPopup(true);
-        }
-        
+        alert('Order created successfully!');
         setFormData({
           customerName: '',
           customerPhone: '',
@@ -139,7 +129,8 @@ const DesignerDashboard: React.FC = () => {
           amount: '',
           advanceAmount: '',
           paymentMethod: 'cash',
-          presentDate: new Date().toISOString().split('T')[0],
+          paymentStatus: 'pending',
+          presentDate: '',
           expectedDeliveryDate: ''
         });
         fetchOrders();
@@ -329,7 +320,24 @@ const DesignerDashboard: React.FC = () => {
                   </select>
                 </div>
                 
-                {/* 8. Present Date */}
+                {/* 8. Payment Status */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Payment Status *
+                  </label>
+                  <select
+                    name="paymentStatus"
+                    value={formData.paymentStatus}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  >
+                    <option value="pending">Pending</option>
+                    <option value="paid">Paid</option>
+                  </select>
+                </div>
+                
+                {/* 9. Present Date */}
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
                     Present Date *
@@ -345,7 +353,7 @@ const DesignerDashboard: React.FC = () => {
                   />
                 </div>
                 
-                {/* 9. Delivery Date */}
+                {/* 10. Delivery Date */}
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
                     Delivery Date *
@@ -372,71 +380,6 @@ const DesignerDashboard: React.FC = () => {
                 </button>
               </div>
             </form>
-          </div>
-        )}
-
-        {/* QR Code Modal */}
-        {showQRCode && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-gray-800 rounded-lg p-8 max-w-md w-full mx-4">
-              <h3 className="text-2xl font-bold text-white mb-6 text-center">Payment QR Code</h3>
-              <div className="text-center">
-                <img 
-                  src="/uploads/qr.png" 
-                  alt="Payment QR Code" 
-                  className="w-48 h-48 mx-auto mb-4 border-2 border-gray-600 rounded-lg"
-                />
-                <p className="text-gray-300 mb-6">Ask customer to scan this QR code for payment</p>
-                
-                <div className="flex flex-col gap-4">
-                  <button
-                    onClick={() => {
-                      if (currentOrderId) {
-                        handlePaymentSuccess(currentOrderId);
-                      }
-                      setShowQRCode(false);
-                      setCurrentOrderId(null);
-                      setShowSuccessPopup(true);
-                    }}
-                    className="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
-                  >
-                    Payment Successful
-                  </button>
-                  <button
-                    onClick={() => {
-                      setShowQRCode(false);
-                      setCurrentOrderId(null);
-                    }}
-                    className="bg-gray-600 text-white px-6 py-3 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Success Popup */}
-        {showSuccessPopup && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-gray-800 rounded-lg p-8 max-w-md w-full mx-4">
-              <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-green-600 rounded-full flex items-center justify-center">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-4">Success!</h3>
-                <p className="text-gray-300 mb-6">Order created successfully!</p>
-                <button
-                  onClick={() => setShowSuccessPopup(false)}
-                  className="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
-                >
-                  OK
-                </button>
-              </div>
-            </div>
           </div>
         )}
 
