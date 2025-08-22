@@ -456,4 +456,28 @@ router.get('/stats/overview', authenticateToken, requireDesignerOrAdmin, async (
   }
 });
 
+// Update payment status to successful (designer only)
+router.patch('/:id/payment-success', authenticateToken, requireDesignerOrAdmin, async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+    
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+    
+    // Update payment status
+    order.paymentStatus = 'paymentSuccessful';
+    await order.save();
+    
+    res.json({
+      message: 'Payment status updated successfully',
+      order
+    });
+    
+  } catch (error) {
+    console.error('Update payment status error:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 export default router;

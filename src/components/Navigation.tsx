@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Home, User, LogOut, Settings, ShoppingBag, Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ThemeToggle } from './ThemeToggle';
-import { useTheme } from '../contexts/ThemeContext';
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,7 +9,6 @@ export function Navigation() {
   const [user, setUser] = useState<any>(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const { theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -84,16 +81,14 @@ export function Navigation() {
 
   // Force dark styling on homepage
   const isHomepage = location.pathname === '/';
-  const useBlackNav = isHomepage || theme === 'dark';
+  const useBlackNav = isHomepage;
 
   return (
     <div className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-6xl px-4">
       <motion.div
-        className={`transition-all duration-300 rounded-2xl px-6 py-4 ${isHomepage
-          ? 'bg-black/90 backdrop-blur-md shadow-xl'
-          : theme === 'light'
-            ? 'bg-black/90 backdrop-blur-md shadow-xl'
-            : 'bg-white/10 backdrop-blur-md border border-white/20 shadow-xl'
+        className={`transition-all duration-300 rounded-2xl px-6 py-2 ${isHomepage
+          ? 'bg-black/50 backdrop-blur-md shadow-xl'
+          : 'bg-black/50 backdrop-blur-md shadow-xl'
           }`}
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -187,7 +182,6 @@ export function Navigation() {
                 <User className="w-5 h-5" />
               </Link>
             )}
-            <ThemeToggle />
           </div>
         </div>
 
@@ -203,7 +197,6 @@ export function Navigation() {
           </Link>
 
           <div className="flex items-center space-x-3 flex-shrink-0">
-            <ThemeToggle />
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 transition-colors text-gray-300 hover:text-white"

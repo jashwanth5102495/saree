@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Upload, X, Edit, Trash2, Eye } from 'lucide-react';
+import { products as existingProducts } from '../data/products';
 
 interface Product {
   _id: string;
@@ -50,7 +51,7 @@ interface Order {
   orderPlacedDate: string;
   expectedDeliveryDate: string;
   paymentMethod: 'cash' | 'online';
-  paymentStatus: 'pending' | 'completed' | 'failed';
+  paymentStatus: 'pending' | 'completed' | 'failed' | 'paymentSuccessful';
   amount: number;
   advanceAmount: number;
   balanceAmount: number;
@@ -79,7 +80,7 @@ interface ProductFormData {
 }
 
 const AdminDashboard: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'add-products' | 'custom-designs'>('add-products');
+  const [activeTab, setActiveTab] = useState<'add-products' | 'custom-designs' | 'custom-orders'>('add-products');
   const [products, setProducts] = useState<Product[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(false);
@@ -88,6 +89,8 @@ const AdminDashboard: React.FC = () => {
   const [imagePreview, setImagePreview] = useState<string>('');
   const [showProductForm, setShowProductForm] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [showQRCode, setShowQRCode] = useState(false);
+  const [currentQROrder, setCurrentQROrder] = useState<Order | null>(null);
   
   const [productFormData, setProductFormData] = useState<ProductFormData>({
     name: '',
@@ -122,10 +125,57 @@ const AdminDashboard: React.FC = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('/api/products');
-      if (response.ok) {
-        const data = await response.json();
-        setProducts(data.products || []);
+      // Filter existing products to only include saree products (exclude agricultural products)
+      const sareeCategories = ['silk', 'cotton', 'designer', 'bridal', 'party', 'casual'];
+      const filteredExistingProducts = existingProducts.filter(product => 
+        sareeCategories.includes(product.category)
+      );
+      
+      // Convert existing products to match the Product interface
+      const convertedExistingProducts = filteredExistingProducts.map(product => ({
+        _id: product.id,
+        name: product.name,
+        category: product.category,
+        image: product.image,
+        shortDescription: product.shortDescription,
+        fullDescription: product.fullDescription,
+        features: product.features,
+        price: parseInt(product.price.replace(/[^\d]/g, '')), // Remove currency symbols and convert to number
+        originalPrice: undefined,
+        discount: 0,
+        inStock: product.inStock,
+        sizes: ['Free Size'], // Default size for existing products
+        colors: ['Multi'], // Default color for existing products
+        material: product.application || 'Premium Quality',
+        blouseLength: undefined,
+        sareeLength: undefined,
+        careInstructions: product.safetyTips,
+        tags: [product.category, product.application],
+        rating: 4.5, // Default rating
+        reviewCount: 0,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      }));
+
+      // Try to fetch products from API
+      try {
+        const response = await fetch('/api/products');
+        if (response.ok) {
+          const data = await response.json();
+          const apiProducts = data.products || [];
+          // Combine existing products with API products, avoiding duplicates
+          const allProducts = [...convertedExistingProducts, ...apiProducts.filter((apiProduct: Product) => 
+            !convertedExistingProducts.some(existing => existing._id === apiProduct._id)
+          )];
+          setProducts(allProducts);
+        } else {
+          // If API fails, just use existing products
+          setProducts(convertedExistingProducts);
+        }
+      } catch (apiError) {
+        // If API fails, just use existing products
+        console.log('API not available, using existing products only');
+        setProducts(convertedExistingProducts);
       }
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -250,12 +300,62 @@ const AdminDashboard: React.FC = () => {
       });
 
       if (response.ok) {
+        const savedProduct = await response.json();
         alert(editingProduct ? 'Product updated successfully!' : 'Product added successfully!');
+        
+        // If adding a new product, add it to the local state immediately
+        if (!editingProduct && savedProduct.product) {
+          setProducts(prevProducts => [...prevProducts, savedProduct.product]);
+          
+          // Save to localStorage for Products page to access
+          const adminProducts = JSON.parse(localStorage.getItem('adminProducts') || '[]');
+          adminProducts.push(savedProduct.product);
+          localStorage.setItem('adminProducts', JSON.stringify(adminProducts));
+        }
+        
         resetForm();
         fetchProducts();
       } else {
-        const error = await response.json();
-        alert(`Error: ${error.message}`);
+        // If API fails but we're adding a new product, create a local product entry
+        if (!editingProduct) {
+          const newProduct: Product = {
+            _id: `local-${Date.now()}`, // Temporary ID for local products
+            name: productFormData.name,
+            category: productFormData.category,
+            image: imagePreview || '/uploads/placeholder.png',
+            shortDescription: productFormData.shortDescription,
+            fullDescription: productFormData.fullDescription,
+            features: productFormData.features.split(',').map(f => f.trim()).filter(f => f),
+            price: parseFloat(productFormData.price),
+            originalPrice: productFormData.originalPrice ? parseFloat(productFormData.originalPrice) : undefined,
+            discount: parseFloat(productFormData.discount),
+            inStock: productFormData.inStock,
+            sizes: productFormData.sizes,
+            colors: productFormData.colors.split(',').map(c => c.trim()).filter(c => c),
+            material: productFormData.material,
+            blouseLength: productFormData.blouseLength,
+            sareeLength: productFormData.sareeLength,
+            careInstructions: productFormData.careInstructions.split(',').map(c => c.trim()).filter(c => c),
+            tags: productFormData.tags.split(',').map(t => t.trim()).filter(t => t),
+            rating: 0,
+            reviewCount: 0,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          };
+          
+          setProducts(prevProducts => [...prevProducts, newProduct]);
+          
+          // Save to localStorage for Products page to access
+          const adminProducts = JSON.parse(localStorage.getItem('adminProducts') || '[]');
+          adminProducts.push(newProduct);
+          localStorage.setItem('adminProducts', JSON.stringify(adminProducts));
+          
+          alert('Product added successfully (stored locally)!');
+          resetForm();
+        } else {
+          const error = await response.json();
+          alert(`Error: ${error.message}`);
+        }
       }
     } catch (error) {
       console.error('Error saving product:', error);
@@ -365,6 +465,16 @@ const AdminDashboard: React.FC = () => {
             }`}
           >
             Custom Designs ({orders.length})
+          </button>
+          <button
+            onClick={() => setActiveTab('custom-orders')}
+            className={`px-6 py-2 rounded-md font-medium transition-colors ${
+              activeTab === 'custom-orders'
+                ? 'bg-gray-700 text-blue-400 shadow-sm'
+                : 'text-gray-300 hover:text-white'
+            }`}
+          >
+            Custom Orders ({orders.filter(order => order.orderType === 'custom').length})
           </button>
         </div>
 
@@ -719,9 +829,7 @@ const AdminDashboard: React.FC = () => {
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Category
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Price
-                      </th>
+
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Stock
                       </th>
@@ -753,12 +861,7 @@ const AdminDashboard: React.FC = () => {
                             {product.category}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-white">₹{product.price}</div>
-                          {product.originalPrice && product.originalPrice > product.price && (
-                            <div className="text-sm text-gray-300 line-through">₹{product.originalPrice}</div>
-                          )}
-                        </td>
+
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                             product.inStock ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
@@ -824,9 +927,6 @@ const AdminDashboard: React.FC = () => {
                       Payment
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                      Status
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                       Delivery Date
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
@@ -876,24 +976,6 @@ const AdminDashboard: React.FC = () => {
                         }`}>
                           {order.paymentStatus}
                         </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <select
-                          value={order.status}
-                          onChange={(e) => updateOrderStatus(order._id, e.target.value)}
-                          className={`text-xs font-semibold rounded-full px-2 py-1 border-0 focus:ring-2 focus:ring-blue-500 ${
-                            order.status === 'delivered' ? 'bg-green-100 text-green-800' :
-                            order.status === 'ready' ? 'bg-blue-100 text-blue-800' :
-                            order.status === 'in-progress' ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-gray-100 text-gray-800'
-                          }`}
-                        >
-                          <option value="pending">Pending</option>
-                          <option value="in-progress">In Progress</option>
-                          <option value="ready">Ready</option>
-                          <option value="delivered">Delivered</option>
-                          <option value="cancelled">Cancelled</option>
-                        </select>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
                         {new Date(order.expectedDeliveryDate).toLocaleDateString()}
@@ -1017,6 +1099,186 @@ const AdminDashboard: React.FC = () => {
                     </div>
                   )}
                 </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Custom Orders Tab */}
+        {activeTab === 'custom-orders' && (
+          <div className="space-y-6">
+            <h2 className="text-2xl font-semibold text-white">Custom Orders Management</h2>
+            
+            <div className="bg-gray-800 rounded-lg shadow-md">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-700">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                        Customer
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Order Details
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Amount
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Payment
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        QR Code
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Status
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-gray-800 divide-y divide-gray-700">
+                    {orders.filter(order => order.orderType === 'custom').map((order) => (
+                      <tr key={order._id} className="hover:bg-gray-700">
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div>
+                            <div className="text-sm font-medium text-white">{order.customerName}</div>
+                            <div className="text-sm text-gray-300">{order.customerPhone}</div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div>
+                            <div className="text-sm font-medium text-white">{order.sareeType}</div>
+                            <div className="text-sm text-gray-300">{order.material} - {order.color}</div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm font-medium text-white">₹{order.amount}</div>
+                          {order.advanceAmount > 0 && (
+                            <div className="text-sm text-gray-300">Advance: ₹{order.advanceAmount}</div>
+                          )}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm font-medium text-white capitalize">{order.paymentMethod}</div>
+                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                            order.paymentStatus === 'paymentSuccessful' ? 'bg-green-100 text-green-800' :
+                            order.paymentStatus === 'completed' ? 'bg-green-100 text-green-800' :
+                            order.paymentStatus === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                            'bg-red-100 text-red-800'
+                          }`}>
+                            {order.paymentStatus}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {order.paymentMethod === 'online' && order.paymentStatus === 'pending' ? (
+                            <button
+                              onClick={() => {
+                                setCurrentQROrder(order);
+                                setShowQRCode(true);
+                              }}
+                              className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
+                            >
+                              Show QR
+                            </button>
+                          ) : (
+                            <span className="text-gray-400 text-sm">-</span>
+                          )}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                            order.status === 'delivered' ? 'bg-green-100 text-green-800' :
+                            order.status === 'ready' ? 'bg-blue-100 text-blue-800' :
+                            order.status === 'in-progress' ? 'bg-yellow-100 text-yellow-800' :
+                            'bg-gray-100 text-gray-800'
+                          }`}>
+                            {order.status}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                          <button
+                            onClick={() => setSelectedOrder(order)}
+                            className="text-blue-400 hover:text-blue-300 mr-3"
+                          >
+                            <Eye size={16} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                
+                {orders.filter(order => order.orderType === 'custom').length === 0 && (
+                  <div className="text-center py-12">
+                    <p className="text-gray-300">No custom orders found</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* QR Code Modal */}
+        {showQRCode && currentQROrder && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Payment QR Code
+                </h3>
+                <button
+                  onClick={() => {
+                    setShowQRCode(false);
+                    setCurrentQROrder(null);
+                  }}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+              
+              <div className="text-center mb-4">
+                <p className="text-sm text-gray-600 mb-2">
+                  Customer: {currentQROrder.customerName}
+                </p>
+                <p className="text-sm text-gray-600 mb-4">
+                  Amount: ₹{currentQROrder.amount}
+                </p>
+                
+                <div className="bg-gray-100 p-4 rounded-lg mb-4">
+                  <img 
+                    src="/qr.png" 
+                    alt="Payment QR Code" 
+                    className="w-48 h-48 mx-auto"
+                  />
+                </div>
+                
+                <p className="text-xs text-gray-500 mb-4">
+                  Scan this QR code to make payment
+                </p>
+              </div>
+              
+              <div className="flex gap-3">
+                <button
+                  onClick={() => {
+                    // Here you would typically update the payment status in the backend
+                    // For now, we'll just close the modal
+                    setShowQRCode(false);
+                    setCurrentQROrder(null);
+                    // You can add API call here to update payment status
+                  }}
+                  className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded"
+                >
+                  Mark as Paid
+                </button>
+                <button
+                  onClick={() => {
+                    setShowQRCode(false);
+                    setCurrentQROrder(null);
+                  }}
+                  className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded"
+                >
+                  Close
+                </button>
               </div>
             </div>
           </div>

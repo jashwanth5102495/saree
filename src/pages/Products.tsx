@@ -4,6 +4,31 @@ import { motion } from 'framer-motion';
 import { ArrowRight, ChevronRight, Heart } from 'lucide-react';
 import { products } from '../data/products';
 
+interface AdminProduct {
+  _id: string;
+  name: string;
+  category: string;
+  image: string;
+  shortDescription: string;
+  fullDescription: string;
+  features: string[];
+  price: number;
+  originalPrice?: number;
+  discount: number;
+  inStock: boolean;
+  sizes: string[];
+  colors: string[];
+  material: string;
+  blouseLength?: string;
+  sareeLength?: string;
+  careInstructions: string[];
+  tags: string[];
+  rating: number;
+  reviewCount: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export function Products() {
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const [searchParams] = useSearchParams();
@@ -12,21 +37,70 @@ export function Products() {
     const saved = localStorage.getItem('favorites');
     return saved ? JSON.parse(saved) : [];
   });
+  const [newlyAddedProducts, setNewlyAddedProducts] = useState<AdminProduct[]>([]);
+  const [allProducts, setAllProducts] = useState(products);
 
-  const filteredProducts = products.filter(product => 
+  // Fetch newly added products from admin dashboard
+  const fetchNewlyAddedProducts = async () => {
+    try {
+      // Get products from localStorage that were added through admin dashboard
+      const adminProducts = JSON.parse(localStorage.getItem('adminProducts') || '[]') as AdminProduct[];
+      
+      // Filter products added in the last 30 days
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      
+      const recentProducts = adminProducts.filter(product => {
+        const createdDate = new Date(product.createdAt);
+        return createdDate > thirtyDaysAgo;
+      });
+      
+      setNewlyAddedProducts(recentProducts);
+    } catch (error) {
+      console.error('Error fetching newly added products:', error);
+    }
+  };
+
+  // Combine existing saree products with newly added products
+  const existingSareeProducts = products.filter(product => 
     ['silk', 'cotton', 'designer', 'bridal', 'party', 'casual'].includes(product.category)
   );
+  
+  // Convert newly added products to match the existing product format
+  const convertedNewProducts = newlyAddedProducts.map(adminProduct => ({
+    id: adminProduct._id,
+    name: adminProduct.name,
+    category: adminProduct.category as any,
+    image: adminProduct.image,
+    shortDescription: adminProduct.shortDescription,
+    fullDescription: adminProduct.fullDescription,
+    features: adminProduct.features,
+    usage: [],
+    ingredients: [],
+    safetyTips: adminProduct.careInstructions,
+    price: `₹${adminProduct.price}`,
+    inStock: adminProduct.inStock,
+    application: adminProduct.material
+  }));
+  
+  const filteredProducts = [...existingSareeProducts, ...convertedNewProducts];
 
   const currentProduct = filteredProducts[currentProductIndex] || products[0];
 
   // Auto-change product every 7 seconds
   useEffect(() => {
+    fetchNewlyAddedProducts();
     const interval = setInterval(() => {
       setCurrentProductIndex((prev) => (prev + 1) % filteredProducts.length);
     }, 7000);
 
     return () => clearInterval(interval);
   }, [filteredProducts.length]);
+
+  // Check if a product is newly added
+  const isNewlyAdded = (productId: string) => {
+    return newlyAddedProducts.some(product => product._id === productId);
+  };
 
   const nextProduct = () => {
     setCurrentProductIndex((prev) => (prev + 1) % filteredProducts.length);
@@ -317,9 +391,16 @@ export function Products() {
                 
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-pink-600 dark:text-pink-400 bg-pink-100 dark:bg-pink-900/30 px-3 py-1 rounded-full capitalize">
-                      {product.category}
-                    </span>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-sm font-medium text-pink-600 dark:text-pink-400 bg-pink-100 dark:bg-pink-900/30 px-3 py-1 rounded-full capitalize">
+                        {product.category}
+                      </span>
+                      {isNewlyAdded(product.id) && (
+                        <span className="text-xs font-bold text-orange-600 bg-orange-100 dark:text-orange-400 dark:bg-orange-900/30 px-2 py-1 rounded-full animate-pulse">
+                          NEWLY ADDED
+                        </span>
+                      )}
+                    </div>
                     <span className={`text-sm font-medium px-3 py-1 rounded-full ${
                       product.inStock 
                         ? 'text-green-600 bg-green-100 dark:text-green-400 dark:bg-green-900/30' 
