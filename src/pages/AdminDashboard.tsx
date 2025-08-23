@@ -439,6 +439,31 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
+  const handleDeleteOrder = async (orderId: string) => {
+    if (!confirm('Are you sure you want to delete this order?')) return;
+    
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`/api/orders/${orderId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        alert('Order deleted successfully!');
+        fetchOrders();
+      } else {
+        const error = await response.json();
+        alert(`Error: ${error.message}`);
+      }
+    } catch (error) {
+      console.error('Error deleting order:', error);
+      alert('Error deleting order');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 p-6">
       <div className="max-w-7xl mx-auto">
@@ -466,16 +491,7 @@ const AdminDashboard: React.FC = () => {
           >
             Custom Designs ({orders.length})
           </button>
-          <button
-            onClick={() => setActiveTab('custom-orders')}
-            className={`px-6 py-2 rounded-md font-medium transition-colors ${
-              activeTab === 'custom-orders'
-                ? 'bg-gray-700 text-blue-400 shadow-sm'
-                : 'text-gray-300 hover:text-white'
-            }`}
-          >
-            Custom Orders ({orders.filter(order => order.orderType === 'custom').length})
-          </button>
+
         </div>
 
         {/* Add Products Tab */}
@@ -981,12 +997,22 @@ const AdminDashboard: React.FC = () => {
                         {new Date(order.expectedDeliveryDate).toLocaleDateString()}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <button
-                          onClick={() => setSelectedOrder(order)}
-                          className="text-blue-600 hover:text-blue-900"
-                        >
-                          <Eye size={16} />
-                        </button>
+                        <div className="flex space-x-2">
+                          <button
+                            onClick={() => setSelectedOrder(order)}
+                            className="text-blue-600 hover:text-blue-900"
+                            title="View Details"
+                          >
+                            <Eye size={16} />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteOrder(order._id)}
+                            className="text-red-600 hover:text-red-900"
+                            title="Delete Order"
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -1104,118 +1130,7 @@ const AdminDashboard: React.FC = () => {
           </div>
         )}
 
-        {/* Custom Orders Tab */}
-        {activeTab === 'custom-orders' && (
-          <div className="space-y-6">
-            <h2 className="text-2xl font-semibold text-white">Custom Orders Management</h2>
-            
-            <div className="bg-gray-800 rounded-lg shadow-md">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-gray-700">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                        Customer
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Order Details
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Amount
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Payment
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        QR Code
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Status
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Actions
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-gray-800 divide-y divide-gray-700">
-                    {orders.filter(order => order.orderType === 'custom').map((order) => (
-                      <tr key={order._id} className="hover:bg-gray-700">
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div>
-                            <div className="text-sm font-medium text-white">{order.customerName}</div>
-                            <div className="text-sm text-gray-300">{order.customerPhone}</div>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div>
-                            <div className="text-sm font-medium text-white">{order.sareeType}</div>
-                            <div className="text-sm text-gray-300">{order.material} - {order.color}</div>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-white">₹{order.amount}</div>
-                          {order.advanceAmount > 0 && (
-                            <div className="text-sm text-gray-300">Advance: ₹{order.advanceAmount}</div>
-                          )}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-white capitalize">{order.paymentMethod}</div>
-                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                            order.paymentStatus === 'paymentSuccessful' ? 'bg-green-100 text-green-800' :
-                            order.paymentStatus === 'completed' ? 'bg-green-100 text-green-800' :
-                            order.paymentStatus === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-red-100 text-red-800'
-                          }`}>
-                            {order.paymentStatus}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {order.paymentMethod === 'online' && order.paymentStatus === 'pending' ? (
-                            <button
-                              onClick={() => {
-                                setCurrentQROrder(order);
-                                setShowQRCode(true);
-                              }}
-                              className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
-                            >
-                              Show QR
-                            </button>
-                          ) : (
-                            <span className="text-gray-400 text-sm">-</span>
-                          )}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                            order.status === 'delivered' ? 'bg-green-100 text-green-800' :
-                            order.status === 'ready' ? 'bg-blue-100 text-blue-800' :
-                            order.status === 'in-progress' ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-gray-100 text-gray-800'
-                          }`}>
-                            {order.status}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          <button
-                            onClick={() => setSelectedOrder(order)}
-                            className="text-blue-400 hover:text-blue-300 mr-3"
-                          >
-                            <Eye size={16} />
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                
-                {orders.filter(order => order.orderType === 'custom').length === 0 && (
-                  <div className="text-center py-12">
-                    <p className="text-gray-300">No custom orders found</p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
+
 
         {/* QR Code Modal */}
         {showQRCode && currentQROrder && (
